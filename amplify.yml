@@ -8,22 +8,31 @@ frontend:
       commands:
         - npm run build
         - echo "Static export completed"
+        - ls -la out/
+        - echo "Copying static files to root for deployment"
+        - cp -r out/* ./
   artifacts:
-    baseDirectory: out
+    baseDirectory: .
     files:
       - '**/*'
-  cache:
-    paths:
+    exclude:
       - node_modules/**/*
-      - .next/cache/**/*
-  customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: 'X-Frame-Options'
-          value: 'DENY'
-        - key: 'X-Content-Type-Options'
-          value: 'nosniff'
-        - key: 'Referrer-Policy'
-          value: 'strict-origin-when-cross-origin'
-        - key: 'Permissions-Policy'
-          value: 'camera=(), microphone=(), geolocation=()'
+      - src/**/*
+      - .git/**/*
+      - amplify.yml
+      - package.json
+      - package-lock.json
+      - next.config.ts
+      - tsconfig.json
+      - .prettierrc
+      - .prettierignore
+      - eslint.config.mjs
+      - postcss.config.mjs
+      - tailwind.config.ts
+      - components.json
+      - netlify.toml
+      - email-template.html
+      - scripts/**/*
+      - KC_R (1).pdf
+      - README.md
+      - .DS_Store
