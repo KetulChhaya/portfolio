@@ -7,32 +7,11 @@ frontend:
     build:
       commands:
         - npm run build
-        - echo "Static export completed"
-        - ls -la out/
-        - echo "Copying static files to root for deployment"
-        - cp -r out/* ./
+        - echo "Build completed successfully"
   artifacts:
-    baseDirectory: .
+    baseDirectory: out
     files:
       - '**/*'
-    exclude:
-      - node_modules/**/*
-      - src/**/*
-      - .git/**/*
-      - amplify.yml
-      - package.json
-      - package-lock.json
-      - next.config.ts
-      - tsconfig.json
-      - .prettierrc
-      - .prettierignore
-      - eslint.config.mjs
-      - postcss.config.mjs
-      - tailwind.config.ts
-      - components.json
-      - netlify.toml
-      - email-template.html
-      - scripts/**/*
-      - KC_R (1).pdf
-      - README.md
-      - .DS_Store
+    cache:
+      paths:
+        - node_modules/**/*
