@@ -7,12 +7,16 @@ frontend:
         - echo "Installing dependencies..."
     build:
       commands:
-        - echo "Building Next.js application..."
+        - echo "Building Next.js static export..."
         - npm run build
+        - echo "Build completed successfully"
+        - ls -la out/
   artifacts:
     baseDirectory: out
     files:
       - '**/*'
+    discard-paths: no
+    name: static-site
   cache:
     paths:
       - node_modules/**/*

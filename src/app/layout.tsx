@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://your-domain.com'), // Replace with your actual domain
+  metadataBase: new URL('https://ketulchhaya.com'), // Replace with your actual domain
   title: {
     default: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer',
     template: '%s | Ketul K. Chhaya',
