@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ketulchhaya.com'), // Replace with your actual domain
+  metadataBase: new URL('https://www.ketulchhaya.com'), // Replace with your actual domain
   title: {
     default: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer',
     template: '%s | Ketul K. Chhaya',
@@ -27,12 +27,12 @@ export const metadata: Metadata = {
     apple: '/favicon.ico',
   },
   description:
-    'Software Engineer with 2+ years of experience specializing in C++, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC. Expert in parallel computing, cryptography, and scalable web applications.',
+    'Software Engineer with 2+ years of experience specializing in JavaScript, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC. Expert in parallel computing, cryptography, and scalable web applications.',
   keywords: [
     'Ketul Chhaya',
     'Software Engineer',
     'Full-Stack Developer',
-    'C++',
+    'JavaScript',
     'Python',
     'React.js',
     'Machine Learning',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     title: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer',
     description:
-      'Software Engineer with expertise in C++, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC. Specializing in parallel computing and scalable applications.',
+      'Software Engineer with expertise in JavaScript, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC. Specializing in parallel computing and scalable applications.',
     siteName: 'Ketul K. Chhaya Portfolio',
     images: [
       {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer',
     description:
-      'Software Engineer with expertise in C++, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC.',
+      'Software Engineer with expertise in JavaScript, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC.',
     creator: '@ketulchhaya',
     images: ['/images/og-image.jpg'],
   },

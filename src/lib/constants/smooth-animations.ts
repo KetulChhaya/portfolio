@@ -30,7 +30,7 @@ export const smoothFadeIn: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: smoothEase,
     },
   },
@@ -46,7 +46,7 @@ export const smoothSlideUp: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: smoothEase,
     },
   },
@@ -62,7 +62,7 @@ export const smoothScale: Variants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.3,
+      duration: 0.15,
       ease: smoothEase,
     },
   },
@@ -78,7 +78,7 @@ export const smoothSlideInLeft: Variants = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: smoothEase,
     },
   },
@@ -94,7 +94,7 @@ export const smoothSlideInRight: Variants = {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: smoothEase,
     },
   },
@@ -106,14 +106,14 @@ export const smoothHover: Variants = {
     scale: 1.01,
     y: -1,
     transition: {
-      duration: 0.15,
+      duration: 0.1,
       ease: gentleEase,
     },
   },
   tap: {
     scale: 0.99,
     transition: {
-      duration: 0.08,
+      duration: 0.05,
       ease: gentleEase,
     },
   },
@@ -129,7 +129,7 @@ export const smoothCardHover: Variants = {
     y: -1,
     scale: 1.003,
     transition: {
-      duration: 0.15,
+      duration: 0.1,
       ease: smoothEase,
     },
   },
@@ -145,7 +145,7 @@ export const smoothTextReveal: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: smoothEase,
     },
   },
@@ -161,7 +161,7 @@ export const smoothPageTransition: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: smoothEase,
     },
   },
@@ -169,7 +169,7 @@ export const smoothPageTransition: Variants = {
     opacity: 0,
     y: -8,
     transition: {
-      duration: 0.3,
+      duration: 0.15,
       ease: gentleEase,
     },
   },
@@ -185,7 +185,7 @@ export const smoothLoading: Variants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: smoothEase,
     },
   },
@@ -193,7 +193,7 @@ export const smoothLoading: Variants = {
     opacity: 0,
     scale: 0.96,
     transition: {
-      duration: 0.25,
+      duration: 0.15,
       ease: gentleEase,
     },
   },

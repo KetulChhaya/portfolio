@@ -38,10 +38,10 @@ function BigFloatingTorus() {
         transparent
         opacity={torusOpacity}
         wireframe
-        roughness={theme === 'dark' ? 0.1 : 0.2}
-        metalness={theme === 'dark' ? 0.6 : 0.3}
+        roughness={theme === 'light' ? 0.2 : 0.1}
+        metalness={theme === 'light' ? 0.3 : 0.6}
         emissive={emissiveColor}
-        emissiveIntensity={theme === 'dark' ? 0.15 : 0.05}
+        emissiveIntensity={theme === 'light' ? 0.05 : 0.15}
       />
     </mesh>
   );
@@ -53,18 +53,18 @@ function Scene() {
   return (
     <>
       {/* Enhanced lighting for better visibility */}
-      <ambientLight intensity={theme === 'dark' ? 0.9 : 0.6} />
+      <ambientLight intensity={theme === 'dark' ? 0.6 : 0.9} />
       <pointLight
         position={[10, 10, 10]}
-        intensity={theme === 'dark' ? 0.8 : 0.4}
+        intensity={theme === 'light' ? 0.4 : 0.8}
       />
       <pointLight
         position={[-10, -5, 5]}
-        intensity={theme === 'dark' ? 0.6 : 0.3}
+        intensity={theme === 'light' ? 0.3 : 0.6}
       />
       <pointLight
         position={[0, 0, 10]}
-        intensity={theme === 'dark' ? 0.5 : 0.2}
+        intensity={theme === 'light' ? 0.2 : 0.5}
       />
 
       {/* Main big floating torus */}

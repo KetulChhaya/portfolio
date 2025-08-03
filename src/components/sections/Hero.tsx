@@ -132,7 +132,7 @@ export function Hero() {
             </motion.div>
 
             {/* Mini Music Player */}
-            <motion.div variants={smoothFadeIn} className="mt-8 lg:mt-12">
+            <motion.div variants={smoothFadeIn} className="mt-2 lg:mt-4">
               <MusicPlayerWithLRC
                 audioUrl="/audio/all-around-the-world.mp3"
                 lrcUrl="/audio/all-around-the-world"
