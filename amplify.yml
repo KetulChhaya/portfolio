@@ -4,19 +4,14 @@ frontend:
     preBuild:
       commands:
         - npm ci
-        - echo "Installing dependencies..."
     build:
       commands:
-        - echo "Building Next.js static export..."
         - npm run build
-        - echo "Build completed successfully"
-        - ls -la out/
+        - echo "Static export completed"
   artifacts:
     baseDirectory: out
     files:
       - '**/*'
-    discard-paths: no
-    name: static-site
   cache:
     paths:
       - node_modules/**/*
