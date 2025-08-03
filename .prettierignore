@@ -1,0 +1,9 @@
+node_modules
+.next
+.vercel
+.amplify-hosting
+*.config.js
+*.config.ts
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
