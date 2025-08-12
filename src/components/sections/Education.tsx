@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { fadeInUp, stagger } from '@/lib/constants/animations';
-import { Calendar, MapPin, GraduationCap } from 'lucide-react';
+import { Calendar, MapPin, GraduationCap, ExternalLink } from 'lucide-react';
 import React from 'react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const educationData = [
   {
@@ -57,10 +59,20 @@ export function Education() {
         >
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="mb-12 lg:mb-16">
-            <h2 className="text-responsive-xl mb-4 font-bold lg:mb-6">
-              Education
-            </h2>
-            <div className="bg-border h-px w-20 lg:w-24"></div>
+            <div className="flex flex-col items-center gap-4 lg:flex-row lg:justify-between">
+              <div>
+                <h2 className="text-responsive-xl mb-4 font-bold lg:mb-6">
+                  Education
+                </h2>
+                <div className="bg-border h-px w-20 lg:w-24"></div>
+              </div>
+              <Link href="/education">
+                <Button variant="outline" className="group">
+                  View Full Details
+                  <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </Button>
+              </Link>
+            </div>
           </motion.div>
 
           {/* Education Cards */}

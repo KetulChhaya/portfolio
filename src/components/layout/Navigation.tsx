@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { useRouter } from 'next/navigation';
-import { Menu, X, Navigation as NavigationIcon } from 'lucide-react';
+import { Menu, X, Github, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const navItems = [
@@ -19,7 +19,6 @@ const navItems = [
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
@@ -49,7 +48,6 @@ export function Navigation() {
         behavior: 'smooth',
       });
     }
-    setIsHovered(false);
     setIsMobileMenuOpen(false);
   };
 
@@ -79,22 +77,66 @@ export function Navigation() {
             </motion.button>
 
             {/* Desktop Navigation */}
-            <div className="hidden items-center gap-8 lg:flex">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-muted-foreground hover:text-foreground relative p-0"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+            <div className="hidden items-center gap-6 lg:flex">
+              <motion.div
+                className="flex items-center gap-6"
+                animate={{ 
+                  x: scrolled ? -10 : 100 
+                }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
               >
-                <motion.div
-                  className="absolute cursor-pointer"
+                {navItems.map((item, index) => (
+                  <Button
+                    key={item.label}
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleNavClick(item.href)}
+                    className="text-muted-foreground hover:text-foreground hover:bg-transparent cursor-pointer"
+                  >
+                    <motion.span
+                      whileHover={{ scale: 1.05 }}
+                      className="text-sm font-medium"
+                    >
+                      {item.label}
+                    </motion.span>
+                  </Button>
+                ))}
+              </motion.div>
+              
+              {/* Social Icons - Appear on scroll */}
+              <motion.div
+                className="flex items-center gap-3"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ 
+                  opacity: scrolled ? 1 : 0, 
+                  x: scrolled ? -10 : 0
+                }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+              >
+                <motion.a
+                  href="https://github.com/ketulchhaya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className=" text-muted-foreground hover:text-foreground flex h-8 w-8 items-center justify-center transition-colors"
                   whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <NavigationIcon className="cursor-pointer" size={18} />
-                </motion.div>
-              </Button>
-
+                  <Github size={16}  />
+                </motion.a>
+                <motion.a
+                  href="https://linkedin.com/in/ketulchhaya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className=" text-muted-foreground hover:text-foreground flex h-8 w-8 items-center justify-center transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Linkedin size={16} />
+                </motion.a>
+              </motion.div>
+              
               <ThemeToggle />
             </div>
 
@@ -142,44 +184,7 @@ export function Navigation() {
         </nav>
       </motion.header>
 
-      {/* Desktop Full-width dropdown menu */}
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            initial={{ opacity: 0, height: 0, y: -10 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed top-18 right-0 left-0 z-40 hidden lg:block"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <div className="container-responsive">
-              <div className="bg-background/90 border-border/20 rounded-2xl border shadow-xl backdrop-blur-xl">
-                <div className="p-6">
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7">
-                    {navItems.map((item, index) => (
-                      <motion.button
-                        key={item.label}
-                        onClick={() => handleNavClick(item.href)}
-                        className="hover:bg-muted/30 hover:text-foreground focus:bg-muted/30 focus:text-foreground hover:border-border/20 cursor-pointer rounded-xl border border-transparent p-4 text-center transition-all duration-200"
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.05, duration: 0.3 }}
-                        whileHover={{ scale: 1.02, y: -2 }}
-                      >
-                        <span className="block text-sm font-medium">
-                          {item.label}
-                        </span>
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* Mobile Menu */}
       <AnimatePresence>

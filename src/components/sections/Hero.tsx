@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { GlassmorphismCard } from '@/components/ui/glassmorphism-card';
 import { ThreeScene } from '@/components/ui/three-scene';
 import { MusicPlayerWithLRC } from '@/components/ui/mini-music-player';
+import { Github, Linkedin, Code2 } from 'lucide-react';
+import Link from 'next/link';
 import {
   smoothFadeIn,
   smoothStagger,
@@ -75,7 +77,7 @@ export function Hero() {
           >
             <motion.div
               variants={smoothFadeIn}
-              className="space-y-4 lg:space-y-6"
+              className="space-y-4 lg:space-y-4 mb-2"
             >
               <h1 className="text-3xl leading-tight font-bold sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 <span className="text-foreground mb-2 block lg:mb-3">
@@ -85,17 +87,38 @@ export function Hero() {
               </h1>
             </motion.div>
 
+            <motion.div
+              variants={smoothFadeIn}
+              className="flex items-center justify-between lg:justify-start mb-2"
+            >
+              <p className="text-muted-foreground max-w-2xl text-base leading-relaxed sm:text-lg md:text-xl">
+                <span className="text-foreground font-semibold">
+                  M.S. in Computer Science
+                </span>{' '}
+                @{' '}
+                <span className="text-foreground font-semibold">
+                  <Link href="https://umbc.edu" target="_blank" rel="noopener noreferrer" className='underline'>UMBC</Link>
+                </span>
+              </p>
+              <Image
+                src="/images/umbc-mascot.png"
+                alt="UMBC Mascot"
+                width={30}
+                height={30}
+                className="ml-2 h-10 w-10"
+              />
+            </motion.div>
+
             <motion.p
               variants={smoothFadeIn}
               className="text-muted-foreground mx-auto max-w-2xl text-base leading-relaxed sm:text-lg md:text-xl lg:mx-0"
             >
-              Hey there! I&apos;m a passionate{' '}
+              A passionate{' '}
               <span className="text-foreground font-semibold">
                 Software Engineer
               </span>{' '}
-              with <br className="hidden sm:block" />{' '}
-              <span className="text-foreground font-semibold">2+ years</span> of
-              professional experience turning ideas into reality, crafting{' '}
+              with <span className="text-foreground font-semibold">2+ years</span> of
+              experience in crafting{' '}
               <span className="text-foreground font-semibold">
                 digital experiences
               </span>{' '}
@@ -104,31 +127,63 @@ export function Hero() {
 
             <motion.div
               variants={smoothFadeIn}
-              className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start"
+              className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:justify-start lg:gap-8"
             >
-              <motion.a
-                href={
-                  process.env.NEXT_PUBLIC_RESUME_URL ||
-                  'https://drive.google.com/file/d/11ShXTCzDhkrfcFCH5YLznlLnBcAh7fG2/view?usp=sharing'
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-foreground text-background hover:bg-foreground/90 rounded-sm px-6 py-3 text-center text-sm font-medium transition-colors sm:px-8 sm:text-base"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-              >
-                Resume
-              </motion.a>
-              <motion.a
-                href="#contact"
-                className="border-border text-foreground hover:bg-muted/50 rounded-sm border px-6 py-3 text-center text-sm font-medium transition-colors sm:px-8 sm:text-base"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-              >
-                Get In Touch
-              </motion.a>
+              <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
+                <motion.a
+                  href={
+                    process.env.NEXT_PUBLIC_RESUME_URL ||
+                    'https://drive.google.com/file/d/11ShXTCzDhkrfcFCH5YLznlLnBcAh7fG2/view?usp=sharing'
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-foreground text-background hover:bg-foreground/90 rounded-sm px-6 py-3 text-center text-sm font-medium transition-colors sm:px-8 sm:text-base"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  Resume
+                </motion.a>
+
+                <div className="flex items-center justify-center gap-3">
+                <motion.a
+                  href="https://github.com/ketulchhaya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground flex h-12 w-12 items-center justify-center rounded-sm border transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Github size={20} />
+                </motion.a>
+                <motion.a
+                  href="https://linkedin.com/in/ketulchhaya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground flex h-12 w-12 items-center justify-center rounded-sm border transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Linkedin size={20} />
+                </motion.a>
+                <motion.a
+                  href="https://leetcode.com/ketulchhaya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground flex h-12 w-12 items-center justify-center rounded-sm border transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Code2 size={20} />
+                </motion.a>
+               
+              </div>
+              </div>
+
+
             </motion.div>
 
             {/* Mini Music Player */}

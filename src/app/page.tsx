@@ -25,7 +25,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-background">
       <AnimatePresence mode="wait">
         {isLoading ? (
           <motion.div
@@ -64,8 +64,12 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
           >
-            <Navigation />
-            <main>
+            {/* Sticky navigation*/}
+            <div className="sticky top-0 z-50">
+              <Navigation />
+            </div>
+            {/* Main content */}
+            <main className="min-h-screen">
               <Hero />
               <About />
               <Education />

@@ -130,31 +130,8 @@
     font-feature-settings:
       'rlig' 1,
       'calt' 1;
-    overflow-x: hidden; /* Prevent horizontal scrollbar */
-    overflow-y: auto; /* Allow vertical scrollbar only when needed */
-    /* Allow natural height flow */
-    min-height: 100vh;
-    position: relative;
   }
-
-  /* Allow sections to fill their natural height */
-  section {
-    overflow-x: hidden; /* Prevent horizontal overflow */
-    overflow-y: visible; /* Allow content to flow naturally */
-    position: relative;
-    /* Remove height restrictions to allow natural flow */
-    height: auto;
-    min-height: auto;
-  }
-
-  /* Ensure containers don't restrict height */
-  .container-responsive {
-    overflow-x: hidden;
-    overflow-y: visible;
-    height: auto;
-    min-height: auto;
-  }
-
+  
   /* Remove aggressive overflow control for animations */
   .motion-safe\:animate-\[fadeIn_0\.6s_ease-out\],
   .motion-safe\:animate-\[slideUp_0\.7s_ease-out\],
@@ -313,6 +290,10 @@
 
   .container-responsive {
     @apply mx-auto max-w-7xl px-6 sm:px-6 lg:px-8;
+  }
+
+  .text-responsive-2xl {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
   }
 
   .text-responsive-xl {
