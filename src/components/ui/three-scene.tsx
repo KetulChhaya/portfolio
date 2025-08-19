@@ -1,15 +1,15 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useRef } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useTheme } from 'next-themes';
 import { ThreeFallback } from './three-fallback';
 
-function BigFloatingTorus() {
+function BigFloatingTorus({ mode }: { mode: string }) {
   const torusRef = useRef<THREE.Mesh>(null);
-  const { theme } = useTheme();
+  const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
   useFrame((state) => {
     if (torusRef.current) {
@@ -22,53 +22,60 @@ function BigFloatingTorus() {
     }
   });
 
-  const torusColor = theme === 'dark' ? '#a855f7' : '#4f46e5'; // Purple in dark mode
-  const torusOpacity = theme === 'dark' ? 0.5 : 0.25;
-  const emissiveColor = theme === 'dark' ? '#ffffff' : torusColor; // White emissive in dark mode
+  const torusColor = mode === 'dark' ? '#f5f0f2' : '#f5f0f2'; // Higher-contrast violet in light mode
+  const torusOpacity = mode === 'dark' ? 0.5 : 0.5;
+  const emissiveColor = '#ffffff';
+
+  useEffect(() => {
+    if (materialRef.current) {
+      materialRef.current.needsUpdate = true;
+    }
+  }, [mode]);
 
   return (
     <mesh
+      key={`torus-${mode}`}
       ref={torusRef}
       position={[-3.25, 0, -2]}
-      rotation={[Math.PI, 0, Math.PI]} // Fixed rotation
+      rotation={[Math.PI, Math.PI, Math.PI]} // Fixed rotation
     >
       <torusGeometry args={[5.0, 1.5, 16, 32]} />
       <meshStandardMaterial
+        ref={materialRef}
         color={torusColor}
         transparent
         opacity={torusOpacity}
         wireframe
-        roughness={theme === 'light' ? 0.2 : 0.1}
-        metalness={theme === 'light' ? 0.3 : 0.6}
+        roughness={mode === 'light' ? 0.2 : 0.1}
+        metalness={mode === 'light' ? 0.3 : 0.6}
         emissive={emissiveColor}
-        emissiveIntensity={theme === 'light' ? 0.05 : 0.15}
+        emissiveIntensity={mode === 'light' ? 0.03 : 0.15}
       />
     </mesh>
   );
 }
 
-function Scene() {
-  const { theme } = useTheme();
+function Scene({ mode }: { mode: string }) {
 
   return (
     <>
       {/* Enhanced lighting for better visibility */}
-      <ambientLight intensity={theme === 'dark' ? 0.6 : 0.9} />
+      <ambientLight intensity={mode === 'dark' ? 0.6 : 0.9} />
       <pointLight
         position={[10, 10, 10]}
-        intensity={theme === 'light' ? 0.4 : 0.8}
+        intensity={mode === 'light' ? 0.4 : 0.8}
       />
       <pointLight
         position={[-10, -5, 5]}
-        intensity={theme === 'light' ? 0.3 : 0.6}
+        intensity={mode === 'light' ? 0.3 : 0.6}
       />
       <pointLight
         position={[0, 0, 10]}
-        intensity={theme === 'light' ? 0.2 : 0.5}
+        intensity={mode === 'light' ? 0.2 : 0.5}
       />
 
       {/* Main big floating torus */}
-      <BigFloatingTorus />
+      <BigFloatingTorus mode={mode} />
     </>
   );
 }
@@ -78,12 +85,16 @@ interface ThreeSceneProps {
 }
 
 export function ThreeScene({ className = '' }: ThreeSceneProps) {
+  const { resolvedTheme, theme } = useTheme();
+  const themeKey = resolvedTheme || theme || 'light';
+  const mode = themeKey;
   return (
     <div
       className={`relative h-full w-full ${className}`}
       style={{ overflow: 'hidden' }}
     >
       <Canvas
+        key={themeKey}
         camera={{
           position: [0, 0, 8],
           fov: 50,
@@ -99,7 +110,7 @@ export function ThreeScene({ className = '' }: ThreeSceneProps) {
         fallback={<ThreeFallback />}
       >
         <Suspense fallback={null}>
-          <Scene />
+          <Scene key={`scene-${mode}`} mode={mode} />
         </Suspense>
       </Canvas>
     </div>

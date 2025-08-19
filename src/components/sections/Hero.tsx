@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { GlassmorphismCard } from '@/components/ui/glassmorphism-card';
 import { ThreeScene } from '@/components/ui/three-scene';
+import { ThreeBackground } from '@/components/ui/three-background';
 import { MusicPlayerWithLRC } from '@/components/ui/mini-music-player';
 import { Github, Linkedin, Code2 } from 'lucide-react';
 import Link from 'next/link';
@@ -59,8 +60,13 @@ export function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
       {/* Background Scene */}
-      <div className="absolute top-0 right-0 h-full w-full">
+      {/* Desktop/Tablet: Full Three.js scene */}
+      <div className="absolute top-0 right-0 h-full w-full hidden sm:block">
         <ThreeScene />
+      </div>
+      {/* Mobile: Lightweight particle/grid background */}
+      <div className="absolute top-0 right-0 h-full w-full sm:hidden">
+        <ThreeBackground />
       </div>
 
       <div className="container-responsive relative z-10">
@@ -187,7 +193,7 @@ export function Hero() {
             </motion.div>
 
             {/* Mini Music Player */}
-            <motion.div variants={smoothFadeIn} className="mt-2 lg:mt-4">
+            {/* <motion.div variants={smoothFadeIn} className="mt-2 lg:mt-4">
               <MusicPlayerWithLRC
                 audioUrl="/audio/all-around-the-world.mp3"
                 lrcUrl="/audio/all-around-the-world"
@@ -202,7 +208,7 @@ export function Hero() {
                 ]}
                 className="mx-auto w-full max-w-md lg:mx-0"
               />
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* Right side - Image with Glassmorphism */}

@@ -59,7 +59,7 @@ export function Education() {
         >
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="mb-12 lg:mb-16">
-            <div className="flex flex-col items-center gap-4 lg:flex-row lg:justify-between">
+            <div className="flex flex-col items-center gap-4 lg:flex-row lg:justify-start">
               <div>
                 <h2 className="text-responsive-xl mb-4 font-bold lg:mb-6">
                   Education
@@ -67,11 +67,11 @@ export function Education() {
                 <div className="bg-border h-px w-20 lg:w-24"></div>
               </div>
               <Link href="/education">
-                <Button variant="outline" className="group">
-                  View Full Details
-                  <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <Button variant="ghost" size="icon" className="p-0 h-10 w-10 relative hover:bg-transparent cursor-pointer">
+                  <ExternalLink className="hover:scale-150 absolute" size={32} />
                 </Button>
               </Link>
+             
             </div>
           </motion.div>
 

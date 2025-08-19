@@ -9,7 +9,8 @@ import { useTheme } from 'next-themes';
 
 function ParticleField() {
   const ref = useRef<THREE.Points>(null);
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const mode = resolvedTheme || theme || 'light';
 
   // Generate random particle positions
   const [positions] = useMemo(() => {
@@ -32,7 +33,8 @@ function ParticleField() {
     }
   });
 
-  const particleColor = theme === 'dark' ? '#ffffff' : '#000000';
+  const baseColor = mode === 'dark' ? '#a855f7' : '#7c3aed';
+  const particleColor = baseColor;
 
   return (
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
@@ -49,7 +51,8 @@ function ParticleField() {
 }
 
 function GridMesh() {
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const mode = resolvedTheme || theme || 'light';
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
@@ -61,7 +64,8 @@ function GridMesh() {
     }
   });
 
-  const gridColor = theme === 'dark' ? '#ffffff' : '#000000';
+  const baseColor = mode === 'dark' ? '#a855f7' : '#7c3aed';
+  const gridColor = baseColor;
 
   return (
     <mesh ref={meshRef} position={[0, 0, -10]} rotation={[Math.PI / 4, 0, 0]}>
@@ -69,7 +73,7 @@ function GridMesh() {
       <meshBasicMaterial
         color={gridColor}
         transparent
-        opacity={0.03}
+        opacity={0.05}
         wireframe
       />
     </mesh>
@@ -77,9 +81,12 @@ function GridMesh() {
 }
 
 export function ThreeBackground() {
+  const { resolvedTheme, theme } = useTheme();
+  const themeKey = resolvedTheme || theme || 'light';
   return (
     <div className="pointer-events-none absolute inset-0">
       <Canvas
+        key={themeKey}
         camera={{
           position: [0, 0, 10],
           fov: 60,

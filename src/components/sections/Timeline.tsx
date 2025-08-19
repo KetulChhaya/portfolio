@@ -20,9 +20,9 @@ const timelineData = [
     technologies: [
       'Analytics',
       'Authentication',
-      'AI Integration',
-      'Real-time Systems',
-      'Data Structures',
+      'Cost Monitoring',
+      'Human Centered Design',
+      'Diff Checker'
     ],
   },
   {

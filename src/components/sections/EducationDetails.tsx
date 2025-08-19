@@ -392,10 +392,10 @@ export function EducationDetails() {
               </div>
             </div>
             <h1 className="text-responsive-2xl mb-4 font-bold sm:mb-6">
-              Education Details
+              Education
             </h1>
             <p className="text-muted-foreground mx-auto max-w-2xl text-base sm:text-lg lg:text-xl">
-              Comprehensive overview of my academic journey, achievements, and extracurricular involvement
+              Overview of my academic journey and extracurricular activities
             </p>
             <div className="bg-border/60 mx-auto mt-6 h-0.5 w-24 sm:w-32 rounded-full"></div>
           </motion.div>
@@ -404,7 +404,7 @@ export function EducationDetails() {
           <motion.div variants={fadeInUp} className="mb-8">
             <div className="relative mx-auto max-w-md">
               {/* Glassmorphism Container */}
-              <div className="relative overflow-hidden rounded-2xl bg-background/80 backdrop-blur-xl border border-border/50 shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl bg-background/80 backdrop-blur-xl border border-border/50">
                 {/* Background Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 opacity-60"></div>
                 
@@ -412,7 +412,7 @@ export function EducationDetails() {
                 <div className="relative flex p-1">
                   {/* Active Tab Indicator */}
                   <motion.div
-                    className="absolute inset-y-1 left-1 w-[calc(50%-2px)] rounded-xl bg-primary/90 backdrop-blur-sm border border-primary/30 shadow-sm"
+                    className="absolute inset-y-1 left-1 w-[calc(50%-2px)] rounded-xl bg-primary/90 backdrop-blur-sm border border-primary/30"
                     initial={false}
                     animate={{
                       x: activeTab === 0 ? 0 : '100%',
@@ -458,12 +458,12 @@ export function EducationDetails() {
               className="mb-12"
             >
               {/* Education Transcript */}
-              <Card className="border-2 border-border/60 bg-background/80 backdrop-blur-sm shadow-xl">
+              <Card className="border-2 border-border/60 bg-background/80 backdrop-blur-sm">
                 <CardHeader className="border-b-2 border-border/50 pb-6">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
-                        <div className="bg-muted/60 border-2 border-border/50 flex h-12 w-12 items-center justify-center rounded-full shadow-md">
+                        <div className="bg-muted/60 border-2 border-border/50 flex h-12 w-12 items-center justify-center rounded-full">
                           <GraduationCap className="text-foreground h-6 w-6" />
                         </div>
                         <div>
@@ -500,14 +500,14 @@ export function EducationDetails() {
                     <div className="flex flex-col items-end gap-4">
                       <div className="text-right">
                         <div className="text-3xl font-bold text-primary">
-                          {educationData[activeTab].cumulativeGPA}
+                          {educationData[activeTab].cumulativeGPA} <span className="text-xs text-muted-foreground">
+                            /{activeTab === 0 ? '4.0' : '10.0'}
+                          </span>
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          {activeTab === 0 ? 'Cumulative GPA' : 'Cumulative CPI'}
+                          {activeTab === 0 ? 'GPA' : 'CPI'}
                         </div>
-                        <div className="text-xs text-muted-foreground">
-                          /{activeTab === 0 ? '4.0' : '10.0'}
-                        </div>
+                       
                       </div>
                       <div className="flex items-center justify-between w-full gap-4">
                         <Button
@@ -566,7 +566,7 @@ export function EducationDetails() {
                               className="space-y-3 overflow-hidden"
                             >
                             {semester.courses.map((course, courseIndex) => (
-                              <div key={courseIndex} className="flex flex-col gap-3 rounded-lg bg-muted/30 p-4 border-2 border-border/50 shadow-md sm:flex-row sm:items-center sm:justify-between">
+                              <div key={courseIndex} className="flex flex-col gap-3 rounded-lg bg-muted/30 p-4 border-2 border-border/50 sm:flex-row sm:items-center sm:justify-between">
                                 <div className="flex-1 space-y-1">
                                   <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                                     <span className="text-muted-foreground font-mono text-sm">{course.code}</span>

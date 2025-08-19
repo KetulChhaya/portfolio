@@ -9,6 +9,23 @@ import { fadeInUp, stagger } from '@/lib/constants/animations';
 const projects = [
   {
     id: 1,
+    title: "TokenWise Tracker",
+    category: "LLM Cost Tracking",
+    description:
+      "A lightweight npm package with CLI that helps monitor OpenAI API costs, token usage, and latency with minimal code changes. It wraps an OpenAI client via a Proxy, logs every call to a local SQLite database, and provides a terminal dashboard plus programmatic APIs (getLogs, getCostSummary) to slice costs by metadata like userId, sessionId, or feature.",
+    technologies: [
+      "TypeScript",
+      "Node.js",
+      "SQLite",
+      "OpenAI SDK",
+      "Commander",
+    ],
+    link: "https://www.npmjs.com/package/tokenwise-tracker",
+    github: "https://github.com/KetulChhaya/TokenWise",
+    status: "NPM Package"
+  },
+  {
+    id: 2,
     title: "Multi-Threaded Pollard's Factoring Algorithms",
     category: 'Cryptography & Parallel Computing',
     description:
@@ -18,49 +35,26 @@ const projects = [
       'GMP',
       'Python',
       'Parallel Computing',
-      'Cryptography',
-      'RSA',
       'Integer Factorization',
     ],
-    link: 'https://github.com/KetulChhaya',
-    github: 'https://github.com/KetulChhaya',
-    status: 'Featured Project',
+    github: 'https://github.com/KetulChhaya/MT-Pollards-Factoring',
+    status: 'Algorithms',
   },
   {
-    id: 2,
+    id: 3,
     title: 'Fault Analysis for Wind Turbines',
     category: 'Machine Learning & Data Science',
     description:
       'Conducted data preprocessing and applied advanced machine learning techniques - Random Forest, One-Class SVM, and XGBoost - for classification and predictive analysis, focusing on detecting and diagnosing turbine faults.',
     technologies: [
       'Scikit-Learn',
-      'Machine Learning',
-      'Python',
       'Random Forest',
       'One-Class SVM',
       'XGBoost',
       'Data Preprocessing',
     ],
-    link: '#',
-    github: '#',
-    status: 'ML Project',
-  },
-  {
-    id: 3,
-    title: 'Portfolio Website',
-    category: 'Web Development',
-    description:
-      'Modern, responsive portfolio website showcasing creative work with smooth animations and optimized performance. Built with Next.js, TypeScript, and Tailwind CSS.',
-    technologies: [
-      'Next.js',
-      'TypeScript',
-      'Tailwind CSS',
-      'Framer Motion',
-      'React',
-    ],
-    link: '#',
-    github: '#',
-    status: 'Personal Project',
+    link: 'https://drive.google.com/drive/folders/1szpuATeZ0wYAdVssqzZ00Q3pZiUvAdJQ',
+    status: 'Machine Learning',
   },
 ];
 
@@ -104,28 +98,32 @@ export function Projects() {
                           {project.category}
                         </Badge>
                         <div className="flex items-center space-x-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                          <motion.a
-                            href={project.link}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="hover:bg-muted/50 rounded-lg p-1.5 transition-colors"
-                          >
-                            <ExternalLink
-                              size={16}
-                              className="text-muted-foreground hover:text-foreground"
-                            />
-                          </motion.a>
-                          <motion.a
-                            href={project.github}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="hover:bg-muted/50 rounded-lg p-1.5 transition-colors"
-                          >
-                            <Github
-                              size={16}
-                              className="text-muted-foreground hover:text-foreground"
-                            />
-                          </motion.a>
+                          {project.link && (
+                            <motion.a
+                              href={project.link}
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              className="hover:bg-muted/50 rounded-lg p-1.5 transition-colors"
+                            >
+                              <ExternalLink
+                                size={16}
+                                className="text-muted-foreground hover:text-foreground"
+                              />
+                            </motion.a>
+                          )}
+                          {project.github && (
+                            <motion.a
+                              href={project.github}
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              className="hover:bg-muted/50 rounded-lg p-1.5 transition-colors"
+                            >
+                              <Github
+                                size={16}
+                                className="text-muted-foreground hover:text-foreground"
+                              />
+                            </motion.a>
+                          )}
                         </div>
                       </div>
                       <h3 className="group-hover:text-foreground mb-2 text-lg font-semibold transition-colors lg:mb-3 lg:text-xl">
