@@ -1,11 +1,11 @@
 // Site Configuration
 export const SITE_CONFIG = {
-  name: 'Your Name',
+  name: 'Ketul Chhaya',
   title: 'Full-Stack Developer',
   description:
     'Passionate Full-Stack Web Developer with 3+ years of professional experience turning ideas into reality.',
-  url: 'https://your-portfolio.com',
-  author: 'Your Name',
+  url: 'https://www.ketulchhaya.com',
+  author: 'Ketul Chhaya',
   keywords: [
     'Full-Stack Developer',
     'Web Developer',
@@ -17,10 +17,10 @@ export const SITE_CONFIG = {
 
 // Social Links
 export const SOCIAL_LINKS = {
-  github: 'https://github.com/yourusername',
-  linkedin: 'https://linkedin.com/in/yourusername',
-  twitter: 'https://twitter.com/yourusername',
-  email: 'your.email@example.com',
+  github: 'https://github.com/KetulChhaya',
+  linkedin: 'https://linkedin.com/in/ketul-chhaya',
+  twitter: 'https://x.com/ketul_chhaya',
+  email: 'chhayaketul13@gmail.com',
 } as const;
 
 // Navigation Items

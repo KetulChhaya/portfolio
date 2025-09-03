@@ -114,7 +114,7 @@ export function Navigation() {
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
                 <motion.a
-                  href="https://github.com/ketulchhaya"
+                  href="https://github.com/KetulChhaya"
                   target="_blank"
                   rel="noopener noreferrer"
                   className=" text-muted-foreground hover:text-foreground flex h-8 w-8 items-center justify-center transition-colors"
@@ -125,7 +125,7 @@ export function Navigation() {
                   <Github size={16}  />
                 </motion.a>
                 <motion.a
-                  href="https://linkedin.com/in/ketulchhaya"
+                  href="https://linkedin.com/in/ketul-chhaya"
                   target="_blank"
                   rel="noopener noreferrer"
                   className=" text-muted-foreground hover:text-foreground flex h-8 w-8 items-center justify-center transition-colors"

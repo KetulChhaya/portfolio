@@ -153,7 +153,7 @@ export function Hero() {
 
                 <div className="flex items-center justify-center gap-3">
                 <motion.a
-                  href="https://github.com/ketulchhaya"
+                  href="https://github.com/KetulChhaya"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground flex h-12 w-12 items-center justify-center rounded-sm border transition-colors"
@@ -164,7 +164,7 @@ export function Hero() {
                   <Github size={20} />
                 </motion.a>
                 <motion.a
-                  href="https://linkedin.com/in/ketulchhaya"
+                  href="https://linkedin.com/in/ketul-chhaya"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground flex h-12 w-12 items-center justify-center rounded-sm border transition-colors"
@@ -175,7 +175,7 @@ export function Hero() {
                   <Linkedin size={20} />
                 </motion.a>
                 <motion.a
-                  href="https://leetcode.com/ketulchhaya"
+                  href="https://leetcode.com/u/chhayaketul13/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border-border text-muted-foreground hover:bg-muted/50 hover:text-foreground flex h-12 w-12 items-center justify-center rounded-sm border transition-colors"

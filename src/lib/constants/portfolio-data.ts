@@ -2,18 +2,18 @@
 // Update this file with your personal information
 
 export const personalInfo = {
-  name: 'Your Name',
+  name: 'Ketul Chhaya',
   title: 'Full-Stack Developer',
-  email: 'your.email@gmail.com',
+  email: 'chhayaketul13@gmail.com',
   phone: '+1 (555) 123-4567',
-  location: 'Your City, Country',
+  location: 'Baltimore, MD',
   description:
     'Passionate Full-Stack Web Developer with 3+ years of professional experience turning ideas into reality.',
 
   social: {
-    github: 'https://github.com/yourusername',
-    linkedin: 'https://linkedin.com/in/yourusername',
-    twitter: 'https://twitter.com/yourusername',
+    github: 'https://github.com/KetulChhaya',
+    linkedin: 'https://linkedin.com/in/ketul-chhaya',
+    twitter: 'https://x.com/ketul_chhaya',
   },
 };
 

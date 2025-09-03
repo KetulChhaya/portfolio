@@ -31,7 +31,7 @@ const contactMethods = [
     icon: Linkedin,
     label: 'LinkedIn',
     value: 'linkedin.com/in/ketul-chhaya',
-    href: 'https://www.linkedin.com/in/ketul-chhaya/',
+    href: 'https://linkedin.com/in/ketul-chhaya/',
     description: 'Connect with me on LinkedIn',
   },
   {
@@ -373,7 +373,7 @@ export function Contact() {
                         href={method.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-background/60 hover:bg-background/80 border-border/50 hover:border-border group flex items-center gap-4 rounded-2xl border p-4 shadow-lg transition-all duration-500 hover:shadow-xl lg:p-5"
+                        className="bg-background/60 hover:bg-background/80 border-border/50 hover:border-border group flex items-center gap-4 rounded-2xl border p-4 shadow-sm transition-all duration-500 hover:shadow-xl lg:p-5"
                         whileHover={{ x: 6, scale: 1.01 }}
                         whileTap={{ scale: 0.98 }}
                         initial={{ opacity: 0, y: 20 }}
@@ -426,7 +426,7 @@ export function Contact() {
                           href={social.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`bg-background/60 hover:bg-background text-muted-foreground rounded-xl p-3 transition-all duration-500 ${social.color} shadow-xs hover:shadow-xl`}
+                          className={`bg-background/60 hover:bg-background text-muted-foreground rounded-xl p-3 transition-all duration-500 ${social.color} shadow-none hover:shadow-lg`}
                           whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
                           whileTap={{ scale: 0.95 }}
                           initial={{ opacity: 0, y: 20, scale: 0.8 }}
