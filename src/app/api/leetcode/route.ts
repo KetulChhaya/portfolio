@@ -55,9 +55,9 @@ export async function POST(request: NextRequest) {
     const stats = user.submitStatsGlobal.acSubmissionNum;
     
     // Parse the stats
-    const easySolved = stats.find((s: any) => s.difficulty === 'Easy')?.count || 0;
-    const mediumSolved = stats.find((s: any) => s.difficulty === 'Medium')?.count || 0;
-    const hardSolved = stats.find((s: any) => s.difficulty === 'Hard')?.count || 0;
+    const easySolved = stats.find((s: { difficulty: string; count: number }) => s.difficulty === 'Easy')?.count || 0;
+    const mediumSolved = stats.find((s: { difficulty: string; count: number }) => s.difficulty === 'Medium')?.count || 0;
+    const hardSolved = stats.find((s: { difficulty: string; count: number }) => s.difficulty === 'Hard')?.count || 0;
     const totalSolved = easySolved + mediumSolved + hardSolved;
 
     const result = {

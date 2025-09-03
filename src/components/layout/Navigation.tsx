@@ -85,7 +85,7 @@ export function Navigation() {
                 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
-                {navItems.map((item, index) => (
+                {navItems.map((item) => (
                   <Button
                     key={item.label}
                     variant="ghost"

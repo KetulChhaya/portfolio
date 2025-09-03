@@ -56,6 +56,7 @@ export async function fetchLeetCodeStats(username: string): Promise<LeetCodeStat
   }
 }
 
+/*
 async function fetchLeetCodeGraphQL(username: string): Promise<LeetCodeStats | null> {
   try {
     const response = await fetch('https://leetcode.com/graphql', {
@@ -120,6 +121,7 @@ async function fetchLeetCodeGraphQL(username: string): Promise<LeetCodeStats | n
     return null;
   }
 }
+*/
 
 async function fetchLeetCodePublic(username: string): Promise<LeetCodeStats | null> {
   try {
@@ -152,7 +154,7 @@ async function fetchLeetCodePublic(username: string): Promise<LeetCodeStats | nu
   }
 }
 
-async function fetchLeetCodeScrape(username: string): Promise<LeetCodeStats | null> {
+async function fetchLeetCodeScrape(_username: string): Promise<LeetCodeStats | null> {
   try {
     // This is a fallback approach - in a real implementation, you might want to use a server-side proxy
     // For now, we'll return mock data as a placeholder
@@ -174,7 +176,7 @@ async function fetchLeetCodeScrape(username: string): Promise<LeetCodeStats | nu
   }
 }
 
-export async function fetchLeetCodeSubmissions(username: string): Promise<LeetCodeSubmission[]> {
+export async function fetchLeetCodeSubmissions(_username: string): Promise<LeetCodeSubmission[]> {
   try {
     // Note: This is a simplified version. Real LeetCode submissions require authentication
     // For now, we'll return mock data or you can implement with proper authentication

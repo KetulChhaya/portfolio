@@ -31,7 +31,7 @@ export interface GitHubRepository {
 }
 
 // GitHub Personal Access Token - you'll need to create one
-const GITHUB_TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKEN || '';
+// const GITHUB_TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKEN || '';
 
 export async function fetchGitHubStats(username: string): Promise<GitHubStats | null> {
   try {
@@ -76,12 +76,12 @@ async function fetchGitHubStatsPublic(username: string): Promise<GitHubStats | n
     }
     const events = await eventsResponse.json();
 
-    const totalContributions = events.filter((event: any) => 
+    const totalContributions = events.filter((event: { type: string }) => 
       ['PushEvent', 'CreateEvent', 'IssuesEvent', 'PullRequestEvent'].includes(event.type)
     ).length;
 
     const currentYear = new Date().getFullYear();
-    const contributionsThisYear = events.filter((event: any) => {
+    const contributionsThisYear = events.filter((event: { type: string; created_at: string }) => {
       const eventDate = new Date(event.created_at);
       return eventDate.getFullYear() === currentYear && 
              ['PushEvent', 'CreateEvent', 'IssuesEvent', 'PullRequestEvent'].includes(event.type);
@@ -169,7 +169,17 @@ export async function fetchGitHubRepositories(username: string): Promise<GitHubR
       }
       
       const repos = await response.json();
-      return repos.map((repo: any) => ({
+      return repos.map((repo: {
+        id: number;
+        name: string;
+        description: string | null;
+        language: string | null;
+        stargazers_count: number;
+        forks_count: number;
+        updated_at: string;
+        html_url: string;
+        private: boolean;
+      }) => ({
         id: repo.id.toString(),
         name: repo.name,
         description: repo.description || '',
@@ -187,7 +197,8 @@ export async function fetchGitHubRepositories(username: string): Promise<GitHubR
   }
 }
 
-function calculateStreakFromCalendar(contributions: any[]): number {
+/*
+function calculateStreakFromCalendar(contributions: Array<{ date: string; contributionCount: number }>): number {
   let currentStreak = 0;
   const today = new Date();
   
@@ -207,8 +218,9 @@ function calculateStreakFromCalendar(contributions: any[]): number {
   
   return currentStreak;
 }
+*/
 
-function calculateStreak(events: any[]): number {
+function calculateStreak(events: Array<{ type: string; created_at: string }>): number {
   let currentStreak = 0;
   const today = new Date();
   
@@ -216,7 +228,7 @@ function calculateStreak(events: any[]): number {
     const checkDate = new Date(today);
     checkDate.setDate(checkDate.getDate() - i);
     
-    const hasContributions = events.some((event: any) => {
+    const hasContributions = events.some((event: { type: string; created_at: string }) => {
       const eventDate = new Date(event.created_at);
       return eventDate.toDateString() === checkDate.toDateString() &&
              ['PushEvent', 'CreateEvent', 'IssuesEvent', 'PullRequestEvent'].includes(event.type);

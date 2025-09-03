@@ -4,19 +4,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { fadeInUp, stagger } from '@/lib/constants/animations';
 import { 
   GraduationCap, 
-  Users, 
+  // Users, 
   Calendar,
   MapPin,
   ChevronRight,
-  BookOpen,
-  Star,
-  Award,
-  Target,
-  ArrowRight,
-  CheckCircle
+  // BookOpen,
+  // Star,
+  // Award,
+  // Target,
+  // ArrowRight,
+  // CheckCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -197,6 +197,7 @@ const educationData = [
 ];
 
 // Activities and extracurricular data
+/*
 const activitiesData = [
   {
     category: 'Technical Activities',
@@ -245,8 +246,10 @@ const activitiesData = [
     ]
   }
 ];
+*/
 
 // Recognition and achievements data
+/*
 const recognitionData = [
   {
     category: 'Academic Excellence',
@@ -318,6 +321,7 @@ const recognitionData = [
     ]
   }
 ];
+*/
 
 export function EducationDetails() {
   const [activeTab, setActiveTab] = useState(0);

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import { Navigation } from '@/components/layout/Navigation';
 import { EducationDetails } from '@/components/sections/EducationDetails';
 import { Footer } from '@/components/sections/Footer';

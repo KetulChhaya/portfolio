@@ -111,8 +111,8 @@ async function fetchGitHubStats(username: string, token?: string) {
 
     // Get contribution calendar data
     const contributionWeeks = user.contributionsCollection.contributionCalendar.weeks;
-    const allContributions = contributionWeeks.flatMap((week: any) => 
-      week.contributionDays.map((day: any) => ({
+    const allContributions = contributionWeeks.flatMap((week: { contributionDays: Array<{ date: string; contributionCount: number }> }) => 
+      week.contributionDays.map((day: { date: string; contributionCount: number }) => ({
         date: day.date,
         contributionCount: day.contributionCount
       }))
@@ -120,10 +120,10 @@ async function fetchGitHubStats(username: string, token?: string) {
 
     // Calculate this year's contributions
     const currentYear = new Date().getFullYear();
-    const contributionsThisYear = allContributions.filter((day: any) => {
+    const contributionsThisYear = allContributions.filter((day: { date: string; contributionCount: number }) => {
       const year = new Date(day.date).getFullYear();
       return year === currentYear && day.contributionCount > 0;
-    }).reduce((sum: number, day: any) => sum + day.contributionCount, 0);
+    }).reduce((sum: number, day: { contributionCount: number }) => sum + day.contributionCount, 0);
 
     // Calculate streak
     const streakDays = calculateStreakFromCalendar(allContributions);
@@ -133,13 +133,13 @@ async function fetchGitHubStats(username: string, token?: string) {
       name: user.name || user.login,
       avatarUrl: user.avatarUrl,
       bio: user.bio || '',
-      publicRepos: user.repositories.nodes.filter((repo: any) => !repo.isPrivate).length,
+      publicRepos: user.repositories.nodes.filter((repo: { isPrivate: boolean }) => !repo.isPrivate).length,
       followers: user.followers.totalCount,
       following: user.following.totalCount,
       totalContributions,
       contributionsThisYear,
       streakDays,
-      privateContributions: user.repositories.nodes.filter((repo: any) => repo.isPrivate).length,
+      privateContributions: user.repositories.nodes.filter((repo: { isPrivate: boolean }) => repo.isPrivate).length,
     };
 
     return NextResponse.json(result);
@@ -196,10 +196,10 @@ async function fetchGitHubContributions(username: string, token?: string) {
     }
 
     const contributionWeeks = user.contributionsCollection.contributionCalendar.weeks;
-    const contributions: any[] = [];
+    const contributions: Array<{ date: string; contributionCount: number; color: string }> = [];
 
-    contributionWeeks.forEach((week: any) => {
-      week.contributionDays.forEach((day: any) => {
+    contributionWeeks.forEach((week: { contributionDays: Array<{ date: string; contributionCount: number }> }) => {
+      week.contributionDays.forEach((day: { date: string; contributionCount: number }) => {
         contributions.push({
           date: day.date,
           contributionCount: day.contributionCount,
@@ -265,7 +265,17 @@ async function fetchGitHubRepositories(username: string, token?: string) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    const repos = user.repositories.nodes.map((repo: any) => ({
+    const repos = user.repositories.nodes.map((repo: { 
+      id: string; 
+      name: string; 
+      description: string | null; 
+      primaryLanguage: { name: string } | null; 
+      stargazerCount: number; 
+      forkCount: number; 
+      updatedAt: string; 
+      url: string; 
+      isPrivate: boolean; 
+    }) => ({
       id: repo.id,
       name: repo.name,
       description: repo.description || '',
@@ -284,7 +294,7 @@ async function fetchGitHubRepositories(username: string, token?: string) {
   }
 }
 
-function calculateStreakFromCalendar(contributions: any[]): number {
+function calculateStreakFromCalendar(contributions: Array<{ date: string; contributionCount: number }>): number {
   let currentStreak = 0;
   const today = new Date();
   

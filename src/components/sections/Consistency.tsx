@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { smoothFadeIn, smoothStagger } from '@/lib/constants/smooth-animations';
 import { fetchLeetCodeStats } from '@/lib/api/leetcode';
 import { fetchGitHubStats, fetchGitHubContributions, fetchGitHubRepositories } from '@/lib/api/github';
@@ -15,10 +15,45 @@ interface ConsistencyProps {
 }
 
 export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyProps) {
-  const [leetcodeStats, setLeetcodeStats] = useState<any>(null);
-  const [githubStats, setGithubStats] = useState<any>(null);
-  const [githubContributions, setGithubContributions] = useState<any[]>([]);
-  const [githubRepos, setGithubRepos] = useState<any[]>([]);
+  const [leetcodeStats, setLeetcodeStats] = useState<{
+    totalSolved: number;
+    totalQuestions: number;
+    easySolved: number;
+    mediumSolved: number;
+    hardSolved: number;
+    ranking: number;
+    reputation: number;
+    acceptanceRate: number;
+  } | null>(null);
+  const [githubStats, setGithubStats] = useState<{
+    username: string;
+    name: string;
+    avatarUrl: string;
+    bio: string;
+    publicRepos: number;
+    followers: number;
+    following: number;
+    totalContributions: number;
+    contributionsThisYear: number;
+    streakDays: number;
+    privateContributions: number;
+  } | null>(null);
+  const [githubContributions, setGithubContributions] = useState<Array<{
+    date: string;
+    contributionCount: number;
+    color: string;
+  }>>([]);
+  const [githubRepos, setGithubRepos] = useState<Array<{
+    id: string;
+    name: string;
+    description: string;
+    language: string;
+    stargazers: number;
+    forks: number;
+    updatedAt: string;
+    url: string;
+    isPrivate: boolean;
+  }>>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +72,7 @@ export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyPro
         setGithubStats(github);
         setGithubContributions(contributions);
         setGithubRepos(repos);
-      } catch (err) {
+      } catch {
         setError('Failed to fetch data. Please check your usernames and try again.');
       } finally {
         setLoading(false);

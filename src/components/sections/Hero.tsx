@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { GlassmorphismCard } from '@/components/ui/glassmorphism-card';
 import { ThreeScene } from '@/components/ui/three-scene';
 import { ThreeBackground } from '@/components/ui/three-background';
-import { MusicPlayerWithLRC } from '@/components/ui/mini-music-player';
+// import { MusicPlayerWithLRC } from '@/components/ui/mini-music-player';
 import { Github, Linkedin, Code2 } from 'lucide-react';
 import Link from 'next/link';
 import {
