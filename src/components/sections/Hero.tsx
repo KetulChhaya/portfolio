@@ -119,16 +119,7 @@ export function Hero() {
               variants={smoothFadeIn}
               className="text-muted-foreground mx-auto max-w-2xl text-base leading-relaxed sm:text-lg md:text-xl lg:mx-0"
             >
-              A passionate{' '}
-              <span className="text-foreground font-semibold">
-                Software Engineer
-              </span>{' '}
-              with <span className="text-foreground font-semibold">2+ years</span> of
-              experience in crafting{' '}
-              <span className="text-foreground font-semibold">
-                digital experiences
-              </span>{' '}
-              that matter.
+              An engineer who thinks in products, builds systems, and loves solving real problems at scale
             </motion.p>
 
             <motion.div

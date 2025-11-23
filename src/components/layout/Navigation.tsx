@@ -13,7 +13,8 @@ const navItems = [
   { label: 'Education', href: '#education' },
   { label: 'Skills', href: '#stack' },
   { label: 'Experience', href: '#timeline' },
-  { label: 'Projects', href: '#projects' },
+  { label: 'Contributions', href: '#projects' },
+  // { label: 'Research', href: '#research-certifications' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -106,12 +107,14 @@ export function Navigation() {
               {/* Social Icons - Appear on scroll */}
               <motion.div
                 className="flex items-center gap-3"
-                initial={{ opacity: 0, x: 10 }}
+                initial={{ opacity: 0, x: 10, visibility: 'hidden' }}
                 animate={{ 
                   opacity: scrolled ? 1 : 0, 
-                  x: scrolled ? -10 : 0
+                  x: scrolled ? -10 : 0,
+                  visibility: scrolled ? 'visible' : 'hidden'
                 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
+                style={{ visibility: scrolled ? 'visible' : 'hidden' }}
               >
                 <motion.a
                   href="https://github.com/KetulChhaya"

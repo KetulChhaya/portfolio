@@ -36,7 +36,7 @@ export function About() {
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    About
+                    Info
                   </button>
                   <button
                     onClick={() => setActiveTab('consistency')}
@@ -66,12 +66,7 @@ export function About() {
               {/* Main Description */}
               <div className="mb-16 lg:mb-20">
                 <h3 className="text-responsive-md text-foreground mb-6 leading-relaxed lg:mb-8">
-                  I specialize in building{' '}
-                  <span className="font-semibold">scalable</span>,{' '}
-                  <span className="font-semibold">high-performance</span>{' '}
-                  applications with a strong focus on usability,{' '}
-                  <span className="font-semibold">efficiency</span>, and seamless
-                  user experiences.
+                    I focus on building thoughtful, user-first software with clean architecture and performance in mind.
                 </h3>
               </div>
 
@@ -89,23 +84,7 @@ export function About() {
                   </div>
                   <div className="md:col-span-9">
                     <p className="text-muted-foreground text-base leading-relaxed lg:text-lg">
-                      With a{' '}
-                      <span className="text-foreground font-medium">strong</span>{' '}
-                      background in both frontend and backend development, I love
-                      turning ideas into functional,{' '}
-                      <span className="text-foreground font-medium">
-                        user-friendly
-                      </span>{' '}
-                      solutions. Whether it&apos;s optimizing UI for seamless{' '}
-                      <span className="text-foreground font-medium">
-                        user experiences
-                      </span>{' '}
-                      or building{' '}
-                      <span className="text-foreground font-medium">
-                        robust backend
-                      </span>{' '}
-                      architectures, I&apos;m always eager to push the boundaries of
-                      application development.
+                    I enjoy building across the stack and turning rough ideas into clean, usable products. I care about how things work behind the scenes and how they feel in the hands of real users, and I’m constantly working on improving both.
                     </p>
                   </div>
                 </div>
@@ -122,14 +101,7 @@ export function About() {
                   </div>
                   <div className="md:col-span-9">
                     <p className="text-muted-foreground text-base leading-relaxed lg:text-lg">
-                      Constantly learning and improving, I aim to create{' '}
-                      <span className="text-foreground font-medium">impactful</span>{' '}
-                      digital solutions that align with{' '}
-                      <span className="text-foreground font-medium">
-                        business goals
-                      </span>{' '}
-                      and enhance user experiences. I believe in writing clean,
-                      maintainable code that scales with growth.
+                    I think good software is built the same way good products are: with clarity, intention, and long-term thinking. I care about clean systems, predictable behavior, and writing code that another engineer can trust and build on without fighting it :)
                     </p>
                   </div>
                 </div>
@@ -146,10 +118,7 @@ export function About() {
                   </div>
                   <div className="md:col-span-9">
                     <p className="text-muted-foreground text-base leading-relaxed lg:text-lg">
-                      Exploring modern frameworks and technologies, contributing to
-                      open-source projects, and building innovative solutions that
-                      make a difference. Always open to new challenges and
-                      collaborative opportunities.
+                    Building and refining full-stack projects while experimenting with AI-driven tools. Learning how real-world systems evolve through usage, traffic, and constraints. Always open to meaningful problems and working with thoughtful, curious builders.
                     </p>
                   </div>
                 </div>

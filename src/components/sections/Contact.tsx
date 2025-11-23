@@ -16,7 +16,6 @@ import {
   CheckCircle,
   AlertCircle,
 } from 'lucide-react';
-import { fadeInUp, stagger } from '@/lib/constants/animations';
 import emailjs from '@emailjs/browser';
 
 const contactMethods = [
@@ -152,56 +151,32 @@ export function Contact() {
   return (
     <section id="contact" className="section-padding bg-muted/30">
       <div className="container-responsive">
-        <motion.div
-          variants={stagger}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, margin: '-100px' }}
+        <motion.div 
           className="mx-auto max-w-7xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           {/* Section Header */}
-          <motion.div
-            variants={fadeInUp}
-            className="mb-10 text-center lg:mb-12"
-          >
-            <motion.h2
-              className="text-responsive-xl text-foreground mb-4 font-bold lg:mb-6"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-            >
+          <div className="mb-10 text-center lg:mb-12">
+            <h2 className="text-responsive-xl text-foreground mb-4 font-bold lg:mb-6">
               Get in Touch
               <div className="bg-border mx-auto mt-4 h-px w-20 lg:mt-6 lg:w-24"></div>
-            </motion.h2>
-          </motion.div>
+            </h2>
+          </div>
 
           <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Contact Form */}
-            <motion.div
-              variants={fadeInUp}
-              className="order-2 lg:order-1"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
+            <div className="order-2 lg:order-1">
               <Card className="bg-background/70 border-border/50 h-fit rounded-2xl border p-0 shadow-sm backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
                 <div className="p-0 md:p-4 lg:p-6 xl:p-8">
-                  <motion.h3
-                    className="text-foreground mb-6 text-xl font-bold lg:mb-8 lg:text-2xl"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                  >
+                  <h3 className="text-foreground mb-6 text-xl font-bold lg:mb-8 lg:text-2xl">
                     Send me a message
-                  </motion.h3>
+                  </h3>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <motion.div
-                      className="grid gap-4 sm:grid-cols-2 lg:gap-6"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.4 }}
-                    >
+                    <div className="grid gap-4 sm:grid-cols-2 lg:gap-6">
                       <div className="space-y-2">
                         <label
                           htmlFor="name"
@@ -238,14 +213,9 @@ export function Contact() {
                           placeholder="your.email@example.com"
                         />
                       </div>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      className="space-y-2"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.5 }}
-                    >
+                    <div className="space-y-2">
                       <label
                         htmlFor="subject"
                         className="text-muted-foreground block text-sm font-semibold"
@@ -262,14 +232,9 @@ export function Contact() {
                         className="bg-background/50 border-border/50 focus:border-foreground focus:ring-foreground/20 h-12 rounded-xl transition-all duration-300 focus:ring-2"
                         placeholder="What's this about?"
                       />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      className="space-y-2"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 }}
-                    >
+                    <div className="space-y-2">
                       <label
                         htmlFor="message"
                         className="text-muted-foreground block text-sm font-semibold"
@@ -286,13 +251,9 @@ export function Contact() {
                         className="bg-background/50 border-border/50 focus:border-foreground focus:ring-foreground/20 resize-none rounded-xl transition-all duration-300 focus:ring-2"
                         placeholder="Tell me about your project, idea, or just say hello!"
                       />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.7 }}
-                    >
+                    <div>
                       <Button
                         type="submit"
                         disabled={isSubmitting}
@@ -310,85 +271,56 @@ export function Contact() {
                           </div>
                         )}
                       </Button>
-                    </motion.div>
+                    </div>
 
                     {submitStatus === 'success' && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        className="flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 p-4 text-green-600 dark:border-green-800 dark:bg-green-900/20"
-                      >
+                      <div className="flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 p-4 text-green-600 dark:border-green-800 dark:bg-green-900/20">
                         <CheckCircle className="h-4 w-4 flex-shrink-0 lg:h-5 lg:w-5" />
                         <span className="text-sm font-medium lg:text-base">
                           Message sent successfully! I&apos;ll get back to you
                           soon.
                         </span>
-                      </motion.div>
+                      </div>
                     )}
 
                     {submitStatus === 'error' && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-600 dark:border-red-800 dark:bg-red-900/20"
-                      >
+                      <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-600 dark:border-red-800 dark:bg-red-900/20">
                         <AlertCircle className="h-4 w-4 flex-shrink-0 lg:h-5 lg:w-5" />
                         <span className="text-sm font-medium lg:text-base">
                           Something went wrong. Please try again or email me
                           directly.
                         </span>
-                      </motion.div>
+                      </div>
                     )}
                   </form>
                 </div>
               </Card>
-            </motion.div>
+            </div>
 
             {/* Contact Info & Social */}
-            <motion.div
-              variants={fadeInUp}
-              className="order-1 space-y-8 lg:order-2 lg:space-y-10"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
+            <div className="order-1 space-y-8 lg:order-2 lg:space-y-10">
               {/* Contact Methods */}
               <div className="space-y-4 lg:space-y-6">
-                <motion.h3
-                  className="text-foreground text-xl font-bold lg:text-2xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
+                <h3 className="text-foreground text-xl font-bold lg:text-2xl">
                   Let&apos;s connect!
-                </motion.h3>
+                </h3>
                 <div className="space-y-3 lg:space-y-4">
-                  {contactMethods.map((method, index) => {
+                  {contactMethods.map((method) => {
                     const IconComponent = method.icon;
                     return (
-                      <motion.a
+                      <a
                         key={method.label}
                         href={method.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-background/60 hover:bg-background/80 border-border/50 hover:border-border group flex items-center gap-4 rounded-2xl border p-4 shadow-sm transition-all duration-500 hover:shadow-xl lg:p-5"
-                        whileHover={{ x: 6, scale: 1.01 }}
-                        whileTap={{ scale: 0.98 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                       >
-                        <motion.div
-                          className="from-muted/50 to-muted/30 group-hover:from-foreground/10 group-hover:to-foreground/5 rounded-xl bg-gradient-to-br p-2.5 transition-all duration-300"
-                          whileHover={{ rotate: 5, scale: 1.1 }}
-                        >
+                        <div className="from-muted/50 to-muted/30 group-hover:from-foreground/10 group-hover:to-foreground/5 rounded-xl bg-gradient-to-br p-2.5 transition-all duration-300">
                           <IconComponent
                             size={20}
                             className="text-muted-foreground group-hover:text-foreground transition-colors duration-300"
                           />
-                        </motion.div>
+                        </div>
                         <div className="flex-1">
                           <p className="text-foreground mb-1 text-base font-semibold lg:text-lg">
                             {method.label}
@@ -400,7 +332,7 @@ export function Contact() {
                             {method.description}
                           </p>
                         </div>
-                      </motion.a>
+                      </a>
                     );
                   })}
                 </div>
@@ -408,42 +340,29 @@ export function Contact() {
 
               {/* Social Links */}
               <div className="space-y-4 lg:space-y-6">
-                <motion.div
-                  className="flex flex-col gap-4 sm:flex-row sm:items-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  <motion.h3 className="text-foreground text-xl font-bold lg:text-2xl">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                  <h3 className="text-foreground text-xl font-bold lg:text-2xl">
                     Follow me
-                  </motion.h3>
+                  </h3>
                   <div className="mb-2 flex gap-3">
-                    {socialLinks.map((social, index) => {
+                    {socialLinks.map((social) => {
                       const IconComponent = social.icon;
                       return (
-                        <motion.a
+                        <a
                           key={social.label}
                           href={social.href}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`bg-background/60 hover:bg-background text-muted-foreground rounded-xl p-3 transition-all duration-500 ${social.color} shadow-none hover:shadow-lg`}
-                          whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
-                          whileTap={{ scale: 0.95 }}
-                          initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{
-                            duration: 0.6,
-                            delay: 0.8 + index * 0.1,
-                          }}
                         >
                           <IconComponent size={20} />
-                        </motion.a>
+                        </a>
                       );
                     })}
                   </div>
-                </motion.div>
+                </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>

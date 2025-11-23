@@ -49,6 +49,24 @@ export interface ContactForm {
   message: string;
 }
 
+// GitHub API types
+export interface GitHubRepository {
+  id: string;
+  name: string;
+  description: string;
+  language: string;
+  stargazers: number;
+  forks: number;
+  updatedAt: string;
+  url: string;
+  isPrivate: boolean;
+  dependencies?: {
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+    peerDependencies?: Record<string, string>;
+  };
+}
+
 // SEO types
 export interface SEOMeta {
   title: string;

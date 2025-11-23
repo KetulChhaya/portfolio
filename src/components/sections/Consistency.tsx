@@ -7,7 +7,7 @@ import { fetchLeetCodeStats } from '@/lib/api/leetcode';
 import { fetchGitHubStats, fetchGitHubContributions, fetchGitHubRepositories } from '@/lib/api/github';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Trophy, GitBranch, Star, Github } from 'lucide-react';
+import { Trophy, GitBranch } from 'lucide-react';
 
 interface ConsistencyProps {
   leetcodeUsername: string;
@@ -35,7 +35,11 @@ export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyPro
     following: number;
     totalContributions: number;
     contributionsThisYear: number;
-    streakDays: number;
+    totalLanguages: number;
+    totalDependencies?: number;
+    totalFrameworks: number;
+    totalStars?: number;
+    totalForks?: number;
     privateContributions: number;
   } | null>(null);
   const [githubContributions, setGithubContributions] = useState<Array<{
@@ -61,19 +65,28 @@ export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyPro
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [leetcode, github, contributions, repos] = await Promise.all([
+        setError(null);
+        const [leetcode, github, contributions] = await Promise.all([
           fetchLeetCodeStats(leetcodeUsername),
           fetchGitHubStats(githubUsername),
           fetchGitHubContributions(githubUsername),
-          fetchGitHubRepositories(githubUsername),
+          // fetchGitHubRepositories(githubUsername),
         ]);
 
         setLeetcodeStats(leetcode);
         setGithubStats(github);
         setGithubContributions(contributions);
-        setGithubRepos(repos);
-      } catch {
-        setError('Failed to fetch data. Please check your usernames and try again.');
+        // setGithubRepos(repos);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+        console.error('Error fetching data:', err);
+        
+        // Check if it's a GitHub authentication error
+        if (errorMessage.includes('authentication') || errorMessage.includes('GITHUB_TOKEN')) {
+          setError('GitHub API requires authentication. Please set GITHUB_TOKEN or NEXT_PUBLIC_GITHUB_TOKEN environment variable. See console for details.');
+        } else {
+          setError(`Failed to fetch data: ${errorMessage}. Please check your usernames and try again.`);
+        }
       } finally {
         setLoading(false);
       }
@@ -165,7 +178,7 @@ export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyPro
             {githubStats ? (
               <div className="space-y-6">
                 {/* Stats Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex flex-wrap justify-evenly gap-4 md:gap-6">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-foreground">{githubStats.publicRepos + (githubStats.privateContributions || 0)}</div>
                     <div className="text-sm text-muted-foreground">Total Repos</div>
@@ -176,16 +189,20 @@ export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyPro
                     )}
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-foreground">{githubStats.followers}</div>
-                    <div className="text-sm text-muted-foreground">Followers</div>
-                  </div>
-                  <div className="text-center">
                     <div className="text-2xl font-bold text-foreground">{githubStats.contributionsThisYear}</div>
-                    <div className="text-sm text-muted-foreground">This Year</div>
+                    <div className="text-sm text-muted-foreground">Contributions in {new Date().getFullYear().toString()}</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-foreground">{githubStats.streakDays}</div>
-                    <div className="text-sm text-muted-foreground">Day Streak</div>
+                    <div className="text-2xl font-bold text-foreground">
+                      {githubStats.totalLanguages || 0}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Languages</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-foreground">
+                      {githubStats.totalFrameworks || 0}
+                    </div>
+                    <div className="text-sm text-muted-foreground">Frameworks & Libraries</div>
                   </div>
                 </div>
 
@@ -219,7 +236,7 @@ export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyPro
       </motion.div>
 
       {/* Recent Repositories */}
-      <motion.div variants={smoothFadeIn}>
+      {/* <motion.div variants={smoothFadeIn}>
         <Card className="bg-background/60 backdrop-blur-sm border-border/50 hover:bg-background/80 transition-all duration-300">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl">
@@ -282,7 +299,7 @@ export function Consistency({ leetcodeUsername, githubUsername }: ConsistencyPro
             )}
           </CardContent>
         </Card>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 }

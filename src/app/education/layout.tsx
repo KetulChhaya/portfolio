@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Education Details | Ketul K. Chhaya',
+  title: 'Education Details | Ketul Chhaya',
   description: 'Comprehensive overview of my academic journey, achievements, and extracurricular involvement including detailed transcripts, activities, leadership, and recognition.',
   keywords: [
     'Education',

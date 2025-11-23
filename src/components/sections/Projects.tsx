@@ -12,7 +12,7 @@ const projects = [
     title: "TokenWise Tracker",
     category: "LLM Cost Tracking",
     description:
-      "A lightweight npm package with CLI that helps monitor OpenAI API costs, token usage, and latency with minimal code changes. It wraps an OpenAI client via a Proxy, logs every call to a local SQLite database, and provides a terminal dashboard plus programmatic APIs (getLogs, getCostSummary) to slice costs by metadata like userId, sessionId, or feature.",
+      "This package uses a JavaScript Proxy to non-intrusively wrap your OpenAI client. It intercepts calls to 'chat.completions.create', records the start and end times, calculates the cost based on the model and token usage, and logs the results (including any custom metadata) to the database. It's designed to have zero impact on your existing code's logic.",
     technologies: [
       "TypeScript",
       "Node.js",
@@ -72,7 +72,7 @@ export function Projects() {
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="mb-12 lg:mb-16">
             <h2 className="text-responsive-xl mb-4 font-bold lg:mb-6">
-              Projects
+              Contributions
             </h2>
             <div className="bg-border h-px w-20 lg:w-24"></div>
           </motion.div>
@@ -94,13 +94,14 @@ export function Projects() {
                     {/* Project Header */}
                     <div className="mb-4 lg:mb-6">
                       <div className="mb-3 flex items-center justify-between lg:mb-4">
-                        <Badge variant="outline" className="text-xs">
-                          {project.category}
+                        <Badge variant="outline" className="text-sm">
+                          {project.status}
                         </Badge>
-                        <div className="flex items-center space-x-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                        <div className="flex items-center space-x-2">
                           {project.link && (
                             <motion.a
                               href={project.link}
+                              target="_blank"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                               className="hover:bg-muted/50 rounded-lg p-1.5 transition-colors"
@@ -114,6 +115,7 @@ export function Projects() {
                           {project.github && (
                             <motion.a
                               href={project.github}
+                              target="_blank"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                               className="hover:bg-muted/50 rounded-lg p-1.5 transition-colors"
@@ -136,18 +138,18 @@ export function Projects() {
 
                     {/* Technologies */}
                     <div className="mt-auto">
-                      <div className="mb-3 flex flex-wrap gap-1.5 lg:mb-4 lg:gap-2">
+                      <div className="mb-3 flex flex-wrap gap-1.5">
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="bg-muted text-muted-foreground border-border inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium lg:px-3 lg:py-1.5 lg:text-sm"
+                            className="bg-muted text-muted-foreground border-border inline-flex items-center rounded-full border text-xs px-2 py-1 font-normal"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
-                      <div className="text-muted-foreground/80 font-mono text-xs lg:text-sm">
-                        {project.status}
+                      <div className="text-muted-foreground/80 font-mono text-xs lg:text-sm mt-5">
+                        {project.category}
                       </div>
                     </div>
                   </div>

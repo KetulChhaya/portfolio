@@ -8,7 +8,11 @@ export interface GitHubStats {
   following: number;
   totalContributions: number;
   contributionsThisYear: number;
-  streakDays: number;
+  totalLanguages: number;
+  totalDependencies?: number; // Optional - not displayed in UI
+  totalFrameworks: number;
+  totalStars?: number; // Optional for backward compatibility
+  totalForks?: number; // Optional for backward compatibility
   privateContributions: number;
 }
 
@@ -28,6 +32,11 @@ export interface GitHubRepository {
   updatedAt: string;
   url: string;
   isPrivate: boolean;
+  dependencies?: {
+    dependencies?: Record<string, string>;
+    devDependencies?: Record<string, string>;
+    peerDependencies?: Record<string, string>;
+  };
 }
 
 // GitHub Personal Access Token - you'll need to create one
@@ -87,8 +96,8 @@ async function fetchGitHubStatsPublic(username: string): Promise<GitHubStats | n
              ['PushEvent', 'CreateEvent', 'IssuesEvent', 'PullRequestEvent'].includes(event.type);
     }).length;
 
-    const streakDays = calculateStreak(events);
-
+    // For fallback, we'll need to fetch repos to get stars/forks
+    // For now, set to 0 - the main API route will provide accurate data
     return {
       username: profile.login,
       name: profile.name || profile.login,
@@ -99,7 +108,9 @@ async function fetchGitHubStatsPublic(username: string): Promise<GitHubStats | n
       following: profile.following,
       totalContributions,
       contributionsThisYear,
-      streakDays,
+      totalLanguages: 0, // Will be calculated by main API route
+      totalDependencies: 0, // Will be calculated by main API route
+      totalFrameworks: 0, // Will be calculated by main API route
       privateContributions: 0, // Can't access private data without token
     };
   } catch (error) {
@@ -194,6 +205,41 @@ export async function fetchGitHubRepositories(username: string): Promise<GitHubR
       console.error('Fallback API also failed:', fallbackError);
       return [];
     }
+  }
+}
+
+// New function to fetch repositories with dependencies
+export async function fetchGitHubRepositoriesWithDependencies(
+  username: string, 
+  excludedRepos?: string[]
+): Promise<GitHubRepository[]> {
+  try {
+    const response = await fetch('/api/github', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        username, 
+        type: 'repositories-with-dependencies',
+        excludedRepos: excludedRepos || []
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching GitHub repositories with dependencies:', error);
+    return [];
   }
 }
 

@@ -15,7 +15,7 @@ const timelineData = [
     period: 'May 2025 - Present',
     ongoing: true,
     description:
-      'Built a scalable analytics logger, tracking user-AI chat events and navigation flow. Led authentication flows and dynamic survey workflows. Implemented cost monitoring system for AI API calls with real-time usage tracking.',
+      'Focused on revealing friction in the business-plan workflow by introducing structured activity logging that exposed how users interacted with prompts and edits. Strengthened cost visibility by adding real-time token-spend tracking tied to sessions, helping identify inefficiencies early. Enhanced evaluation of AI output quality by implementing a comparison system that surfaced recurring gaps between generated content and user revisions.',
     icon: Briefcase,
     technologies: [
       'Analytics',
@@ -35,7 +35,7 @@ const timelineData = [
     period: 'Jan 2023 - Aug 2024',
     ongoing: false,
     description:
-      'Architected C++ based metadata extractor processing 8,000+ contracts (30% faster than Python). Optimized workflows reducing approval time by 50%. Implemented real-time user review feature and ServiceNow API automation portal.',
+      'Resolved large-scale data inconsistency by creating a stable migration framework that standardized thousands of legacy healthcare contracts. Eliminated approval bottlenecks through adaptive workflow redesign that reduced turnaround time and improved reliability. Reduced configuration effort by automating contract-model setup, converting a slow, error-prone process into a fast and predictable one, supported by real-time review synchronization for distributed teams.',
     icon: Briefcase,
     technologies: [
       'C++',
@@ -56,7 +56,7 @@ const timelineData = [
     period: 'Nov 2022 - Jun 2023',
     ongoing: false,
     description:
-      'Built adaptive e-commerce frontend with React.js, increasing revenue by 30%. Implemented JWT authentication and unique hanger credit system. Integrated WebSocket messaging and advanced search filtering.',
+      'Improved revenue and user flow by refining the storefront experience to remove friction during browsing and transactions. Strengthened retention and engagement through incentive systems that encouraged repeat activity and reduced churn. Increased discoverability and trust by addressing SEO, load-time, and accessibility issues, leading to stronger organic traffic and smoother user interaction.',
     icon: Briefcase,
     technologies: [
       'React.js',

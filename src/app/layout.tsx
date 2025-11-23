@@ -18,8 +18,8 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.ketulchhaya.com'), // Replace with your actual domain
   title: {
-    default: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer',
-    template: '%s | Ketul K. Chhaya',
+    default: 'Ketul Chhaya',
+    template: '%s | Ketul Chhaya',
   },
   icons: {
     icon: '/favicon.ico',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     apple: '/favicon.ico',
   },
   description:
-    'Software Engineer with 2+ years of experience specializing in JavaScript, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC. Expert in parallel computing, cryptography, and scalable web applications.',
+    'An engineer who thinks in products, builds systems, and loves solving real problems at scale. Software Engineer with expertise in JavaScript, Python, and AWS. Currently pursuing M.S. in Computer Science at UMBC.',
   keywords: [
     'Ketul Chhaya',
     'Software Engineer',
@@ -38,6 +38,7 @@ export const metadata: Metadata = {
     'Machine Learning',
     'Parallel Computing',
     'Cryptography',
+    'AWS',
     'UMBC',
     'Computer Science',
     'Web Development',
@@ -45,30 +46,30 @@ export const metadata: Metadata = {
     'TypeScript',
     'Portfolio',
   ],
-  authors: [{ name: 'Ketul K. Chhaya' }],
-  creator: 'Ketul K. Chhaya',
+  authors: [{ name: 'Ketul Chhaya' }],
+  creator: 'Ketul Chhaya',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer',
+    title: 'Ketul Chhaya',
     description:
-      'Software Engineer with expertise in JavaScript, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC. Specializing in parallel computing and scalable applications.',
-    siteName: 'Ketul K. Chhaya Portfolio',
+      'An engineer who thinks in products, builds systems, and loves solving real problems at scale. Software Engineer with expertise in JavaScript, Python, and AWS. Currently pursuing M.S. in Computer Science at UMBC.',
+    siteName: 'Ketul Chhaya Portfolio',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer Portfolio',
+        alt: 'Ketul Chhaya Portfolio',
         type: 'image/jpeg',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ketul K. Chhaya - Software Engineer & Full-Stack Developer',
+    title: 'Ketul Chhaya',
     description:
-      'Software Engineer with expertise in JavaScript, Python, React.js, and machine learning. Currently pursuing M.S. in Computer Science at UMBC.',
+      'An engineer who thinks in products, builds systems, and loves solving real problems at scale. Software Engineer with expertise in JavaScript, Python, and AWS. Currently pursuing M.S. in Computer Science at UMBC.',
     creator: '@ketulchhaya',
     images: ['/images/og-image.jpg'],
   },

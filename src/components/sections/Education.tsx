@@ -24,6 +24,7 @@ const educationData = [
       'Software Testing',
       'Data Visualization',
       'Advanced Computer Architecture',
+    'Active Cyberdefense',
     ],
   },
   {
@@ -42,6 +43,9 @@ const educationData = [
       'Big Data',
       'Embedded Systems',
       'Artificial Intelligence',
+      'Computer Vision',
+      'Cloud Architecture and Services',
+
     ],
   },
 ];
