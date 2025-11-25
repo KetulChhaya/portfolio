@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
+  let username = '';
+  let type = '';
   try {
-    const { username, type, excludedRepos } = await request.json();
+    const requestData = await request.json();
+    username = requestData.username;
+    type = requestData.type;
+    const excludedRepos = requestData.excludedRepos;
 
     if (!username || !type) {
       return NextResponse.json({ error: 'Username and type are required' }, { status: 400 });
@@ -10,6 +15,16 @@ export async function POST(request: NextRequest) {
 
     // Check for token - prefer GITHUB_TOKEN (server-side only) over NEXT_PUBLIC_GITHUB_TOKEN (exposed to client)
     const githubToken = process.env.GITHUB_TOKEN || process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+    
+    // Debug: Log token availability (without exposing the actual token)
+    console.log('Environment check:', {
+      hasGitHubToken: !!process.env.GITHUB_TOKEN,
+      hasPublicGitHubToken: !!process.env.NEXT_PUBLIC_GITHUB_TOKEN,
+      tokenAvailable: !!githubToken,
+      tokenLength: githubToken ? githubToken.length : 0,
+      requestType: type,
+      username: username
+    });
 
     if (type === 'stats') {
       return await fetchGitHubStats(username, githubToken);
@@ -24,8 +39,18 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     console.error('GitHub API error:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      type: typeof error,
+      requestType: type,
+      username: username
+    });
     return NextResponse.json(
-      { error: 'Failed to fetch GitHub data' },
+      { 
+        error: 'Failed to fetch GitHub data',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     );
   }
@@ -604,6 +629,13 @@ async function fetchDependenciesFromRepos(
 
 async function fetchGitHubRepositoriesWithDependencies(username: string, token?: string, excludedRepos: string[] = []) {
   try {
+    console.log('fetchGitHubRepositoriesWithDependencies called:', {
+      username,
+      hasToken: !!token,
+      tokenLength: token ? token.length : 0,
+      excludedReposCount: excludedRepos.length
+    });
+
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
@@ -643,7 +675,13 @@ async function fetchGitHubRepositoriesWithDependencies(username: string, token?:
     });
 
     if (!response.ok) {
-      throw new Error(`GitHub API responded with status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('GitHub API error response:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText
+      });
+      throw new Error(`GitHub API responded with status: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
@@ -651,7 +689,7 @@ async function fetchGitHubRepositoriesWithDependencies(username: string, token?:
     if (data.errors) {
       console.error('GitHub GraphQL errors:', data.errors);
       return NextResponse.json(
-        { error: data.errors[0]?.message || 'Unknown GraphQL error' },
+        { error: data.errors[0]?.message || 'Unknown GraphQL error', details: data.errors },
         { status: 400 }
       );
     }
@@ -669,7 +707,7 @@ async function fetchGitHubRepositoriesWithDependencies(username: string, token?:
     );
 
     // Now fetch package.json for each repository
-     const reposWithDependencies = await Promise.all(
+    const reposWithDependencies = await Promise.all(
        filteredRepositories.map(async (repo: { 
          id: string; 
          name: string; 
@@ -729,6 +767,12 @@ async function fetchGitHubRepositoriesWithDependencies(username: string, token?:
     return NextResponse.json(reposWithDependencies);
   } catch (error) {
     console.error('Error fetching GitHub repositories with dependencies:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      username,
+      hasToken: !!token
+    });
     throw error;
   }
 }
