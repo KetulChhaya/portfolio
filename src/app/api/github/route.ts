@@ -135,7 +135,7 @@ async function fetchGitHubStats(username: string, token?: string) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    let publicRepos = user.repositories.nodes;
+    const publicRepos = user.repositories.nodes;
     let privateRepos: typeof publicRepos = [];
 
     // If token is available, also fetch private repositories
@@ -439,7 +439,7 @@ async function fetchGitHubRepositories(username: string, token?: string) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    let publicRepos = user.repositories.nodes;
+    const publicRepos = user.repositories.nodes;
     let privateRepos: typeof publicRepos = [];
 
     // If token is available, also fetch private repositories
@@ -664,13 +664,23 @@ async function fetchGitHubRepositoriesWithDependencies(username: string, token?:
     const repositories = user.repositories.nodes;
 
     // Filter out excluded repositories
-    const filteredRepositories = repositories.filter((repo: any) => 
+    const filteredRepositories = repositories.filter((repo: { name: string }) => 
       !excludedRepos.includes(repo.name)
     );
 
     // Now fetch package.json for each repository
-    const reposWithDependencies = await Promise.all(
-      filteredRepositories.map(async (repo: any) => {
+     const reposWithDependencies = await Promise.all(
+       filteredRepositories.map(async (repo: { 
+         id: string; 
+         name: string; 
+         description: string | null; 
+         primaryLanguage: { name: string } | null; 
+         stargazerCount: number; 
+         forkCount: number; 
+         updatedAt: string; 
+         url: string; 
+         isPrivate: boolean; 
+       }) => {
         let dependencies = null;
         
         try {

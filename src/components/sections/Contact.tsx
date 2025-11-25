@@ -151,7 +151,7 @@ export function Contact() {
   return (
     <section id="contact" className="section-padding bg-muted/30">
       <div className="container-responsive">
-        <motion.div 
+        <motion.div
           className="mx-auto max-w-7xl"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

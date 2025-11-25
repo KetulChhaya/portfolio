@@ -9,7 +9,6 @@ import { Education } from '@/components/sections/Education';
 import { TechStack } from '@/components/sections/TechStack';
 import { Timeline } from '@/components/sections/Timeline';
 import { Projects } from '@/components/sections/Projects';
-import { ResearchCertifications } from '@/components/sections/ResearchCertifications';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/sections/Footer';
 

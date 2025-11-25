@@ -52,7 +52,7 @@ export async function fetchLeetCodeStats(username: string): Promise<LeetCodeStat
     }
     
     // Final fallback to mock data
-    return fetchLeetCodeScrape(username);
+    return fetchLeetCodeScrape();
   }
 }
 
@@ -154,7 +154,7 @@ async function fetchLeetCodePublic(username: string): Promise<LeetCodeStats | nu
   }
 }
 
-async function fetchLeetCodeScrape(_username: string): Promise<LeetCodeStats | null> {
+async function fetchLeetCodeScrape(): Promise<LeetCodeStats | null> {
   try {
     // This is a fallback approach - in a real implementation, you might want to use a server-side proxy
     // For now, we'll return mock data as a placeholder
@@ -176,7 +176,7 @@ async function fetchLeetCodeScrape(_username: string): Promise<LeetCodeStats | n
   }
 }
 
-export async function fetchLeetCodeSubmissions(_username: string): Promise<LeetCodeSubmission[]> {
+export async function fetchLeetCodeSubmissions(): Promise<LeetCodeSubmission[]> {
   try {
     // Note: This is a simplified version. Real LeetCode submissions require authentication
     // For now, we'll return mock data or you can implement with proper authentication

@@ -79,7 +79,6 @@ import {
   FaJava,
   FaAws,
 } from 'react-icons/fa';
-import { TbBrandVscode } from 'react-icons/tb';
 
 // Repositories to exclude from tech stack analysis
 const EXCLUDED_REPOSITORIES = [
@@ -94,10 +93,6 @@ const EXCLUDED_REPOSITORIES = [
   'CSEE-Triage-SWE',
 ];
 
-// Helper function to check if a repository should be excluded
-function isRepositoryExcluded(repoName: string): boolean {
-  return EXCLUDED_REPOSITORIES.includes(repoName);
-}
 
 // Icon mapping for technologies with brand colors
 const techIcons: {
@@ -580,7 +575,7 @@ export function TechStack() {
     }
   };
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (_event: React.MouseEvent<HTMLDivElement>) => {
     if (hoveredTech && hoveredElementRef.current) {
       updateTooltipPosition(hoveredElementRef.current);
     }
