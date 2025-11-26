@@ -15,7 +15,7 @@ const timelineData = [
     period: 'May 2025 - Present',
     ongoing: true,
     description:
-      'Focused on revealing friction in the business-plan workflow by introducing structured activity logging that exposed how users interacted with prompts and edits. Strengthened cost visibility by adding real-time token-spend tracking tied to sessions, helping identify inefficiencies early. Enhanced evaluation of AI output quality by implementing a comparison system that surfaced recurring gaps between generated content and user revisions.',
+      'Focused on identifying friction points in the business-plan workflow by introducing structured activity logging that exposed how users interacted with prompts and edits. Strengthened cost visibility by adding real-time token-spend tracking tied to sessions, helping identify inefficiencies early. Enhanced evaluation of AI output quality by implementing a comparison system that surfaced recurring gaps between generated content and user revisions.',
     icon: Briefcase,
     technologies: [
       'Analytics',
@@ -71,7 +71,7 @@ const timelineData = [
 
 export function Timeline() {
   return (
-    <section id="timeline" className="section-padding">
+    <section id="timeline" className="section-padding section-alt-bg">
       <div className="container-responsive">
         <motion.div
           variants={stagger}

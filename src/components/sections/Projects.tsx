@@ -3,26 +3,37 @@
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, FileText, Github } from 'lucide-react';
 import { fadeInUp, stagger } from '@/lib/constants/animations';
 
-const projects = [
+type Project = {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  technologies: string[];
+  link?: string;
+  github?: string;
+  medium?: string;
+  status: string;
+};
+
+const projects: Project[] = [
   {
     id: 1,
-    title: "TokenWise Tracker",
-    category: "LLM Cost Tracking",
+    title: "Pole to Podium: Visualizing F1 Performance",
+    category: "Data Visualization",
     description:
-      "This package uses a JavaScript Proxy to non-intrusively wrap your OpenAI client. It intercepts calls to 'chat.completions.create', records the start and end times, calculates the cost based on the model and token usage, and logs the results (including any custom metadata) to the database. It's designed to have zero impact on your existing code's logic.",
+      "Built a visualization tool to make Formula 1 race data easier to understand. F1 generates tons of data during races, but it's hard to make sense of it all in real-time. I processed and transformed the raw data to create clear visualizations that show driver and car performance in a way that's actually useful for fans.",
     technologies: [
-      "TypeScript",
-      "Node.js",
-      "SQLite",
-      "OpenAI SDK",
-      "Commander",
+      "D3.js",
+      "React",
+      "Data Processing",
+      "Data Transformation",
     ],
-    link: "https://www.npmjs.com/package/tokenwise-tracker",
-    github: "https://github.com/KetulChhaya/TokenWise",
-    status: "NPM Package"
+    link: "https://formula-v.netlify.app",
+    github: "https://github.com/KetulChhaya/Formula-V",
+    status: "Web App"
   },
   {
     id: 2,
@@ -60,7 +71,7 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projects" className="section-padding">
+    <section id="projects" className="section-padding section-alt-bg">
       <div className="container-responsive">
         <motion.div
           variants={stagger}
@@ -72,7 +83,7 @@ export function Projects() {
           {/* Section Header */}
           <motion.div variants={fadeInUp} className="mb-12 lg:mb-16">
             <h2 className="text-responsive-xl mb-4 font-bold lg:mb-6">
-              Contributions
+              Projects
             </h2>
             <div className="bg-border h-px w-20 lg:w-24"></div>
           </motion.div>
@@ -124,6 +135,17 @@ export function Projects() {
                                 size={16}
                                 className="text-muted-foreground hover:text-foreground"
                               />
+                            </motion.a>
+                          )}
+                          {project.medium && (
+                            <motion.a
+                              href={project.medium}
+                              target="_blank"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              className="hover:bg-muted/50 rounded-lg p-1.5 transition-colors"
+                            >
+                              <FileText size={16} />
                             </motion.a>
                           )}
                         </div>

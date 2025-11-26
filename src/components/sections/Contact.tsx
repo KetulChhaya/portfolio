@@ -149,7 +149,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="section-padding bg-muted/30">
+    <section id="contact" className="section-padding">
       <div className="container-responsive">
         <motion.div
           className="mx-auto max-w-7xl"

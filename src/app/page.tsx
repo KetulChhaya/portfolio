@@ -8,6 +8,7 @@ import { About } from '@/components/sections/About';
 import { Education } from '@/components/sections/Education';
 import { TechStack } from '@/components/sections/TechStack';
 import { Timeline } from '@/components/sections/Timeline';
+import { Contributions } from '@/components/sections/Contributions';
 import { Projects } from '@/components/sections/Projects';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/sections/Footer';
@@ -75,6 +76,7 @@ export default function Home() {
               <Education />
               <TechStack />
               <Timeline />
+              <Contributions />
               <Projects />
               {/* <ResearchCertifications /> */}
               <Contact />

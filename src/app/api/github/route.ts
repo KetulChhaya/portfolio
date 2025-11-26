@@ -1,5 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Secured list of repositories to include in tech stack analysis
+// This list is only accessible on the backend for security
+const INCLUDED_REPOSITORIES = [
+  'bizchat',
+  'TokenWise',
+  'spotify-mixer',
+  'MT-Pollards-Factoring',
+  'bh-quant-dev-trial',
+  'Formula-V',
+  'data-viz',
+  'Vehicle-Detection-and-Counting-for-predicting-Traffic-Intensity',
+  'devtraining-needit-tokyo',
+  'bisag-project',
+  'bisag-frontend',
+  'Ciphers',
+  'OS-CPU-Scheduling',
+  'lyrically',
+  'basic-mern-auth',
+  'task-manager-api',
+  'node-tutorials',
+  'hangman',
+  'BreakingBad',
+  'pixels',
+  'Expense-Manager',
+  'ICCMDP',
+  'weatherLY',
+  'Encode',
+  'Closest-LLC/closestcloset-frontend',
+  'Closest-LLC/closestcloset-backend',
+  'Closest-LLC/chatengine',
+  'The-inkScribe/Frontend-GoDizel',
+  'The-inkScribe/Backend-GoDizel',
+  'Web-Team-Encode/blog-web'
+];
+
 export async function POST(request: NextRequest) {
   let username = '';
   let type = '';
@@ -7,7 +42,6 @@ export async function POST(request: NextRequest) {
     const requestData = await request.json();
     username = requestData.username;
     type = requestData.type;
-    const excludedRepos = requestData.excludedRepos;
 
     if (!username || !type) {
       return NextResponse.json({ error: 'Username and type are required' }, { status: 400 });
@@ -15,16 +49,7 @@ export async function POST(request: NextRequest) {
 
     // Check for token - prefer GITHUB_TOKEN (server-side only) over NEXT_PUBLIC_GITHUB_TOKEN (exposed to client)
     const githubToken = process.env.GITHUB_TOKEN || process.env.NEXT_PUBLIC_GITHUB_TOKEN;
-    
-    // Debug: Log token availability (without exposing the actual token)
-    console.log('Environment check:', {
-      hasGitHubToken: !!process.env.GITHUB_TOKEN,
-      hasPublicGitHubToken: !!process.env.NEXT_PUBLIC_GITHUB_TOKEN,
-      tokenAvailable: !!githubToken,
-      tokenLength: githubToken ? githubToken.length : 0,
-      requestType: type,
-      username: username
-    });
+
 
     if (type === 'stats') {
       return await fetchGitHubStats(username, githubToken);
@@ -33,7 +58,8 @@ export async function POST(request: NextRequest) {
     } else if (type === 'repositories') {
       return await fetchGitHubRepositories(username, githubToken);
     } else if (type === 'repositories-with-dependencies') {
-      return await fetchGitHubRepositoriesWithDependencies(username, githubToken, excludedRepos);
+      // Use the secured backend list instead of accepting from frontend
+      return await fetchGitHubRepositoriesWithDependencies(username, githubToken, INCLUDED_REPOSITORIES);
     } else {
       return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
     }
@@ -627,14 +653,12 @@ async function fetchDependenciesFromRepos(
   };
 }
 
-async function fetchGitHubRepositoriesWithDependencies(username: string, token?: string, excludedRepos: string[] = []) {
+async function fetchGitHubRepositoriesWithDependencies(username: string, token?: string, includedRepos: string[] = []) {
   try {
-    console.log('fetchGitHubRepositoriesWithDependencies called:', {
-      username,
-      hasToken: !!token,
-      tokenLength: token ? token.length : 0,
-      excludedReposCount: excludedRepos.length
-    });
+    // Return empty array if includedRepos is not provided or empty
+    if (!includedRepos || includedRepos.length === 0) {
+      return NextResponse.json([]);
+    }
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -644,33 +668,51 @@ async function fetchGitHubRepositoriesWithDependencies(username: string, token?:
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    // First get all repositories
+    // Parse repository names to support both "repo-name" and "owner/repo-name" formats
+    const repoInfo = includedRepos.map((repoIdentifier) => {
+      if (repoIdentifier.includes('/')) {
+        // Format: "owner/repo-name"
+        const [owner, repoName] = repoIdentifier.split('/');
+        return { owner: owner.trim(), repoName: repoName.trim(), fullName: repoIdentifier };
+      } else {
+        // Format: "repo-name" (belongs to the user)
+        return { owner: username, repoName: repoIdentifier.trim(), fullName: `${username}/${repoIdentifier.trim()}` };
+      }
+    });
+
+    // Build GraphQL query with aliases for each repository
+    // Using aliases to query specific repositories directly
+    const repositoryFields = `
+      id
+      name
+      description
+      primaryLanguage {
+        name
+      }
+      stargazerCount
+      forkCount
+      updatedAt
+      url
+      isPrivate
+    `;
+
+    // Create aliases for each repository (e.g., repo0, repo1, repo2, ...)
+    // Use the owner from repoInfo for each repository
+    const queryParts = repoInfo.map((repo, index) => 
+      `repo${index}: repository(owner: "${repo.owner}", name: "${repo.repoName}") { ${repositoryFields} }`
+    ).join('\n    ');
+
+    const query = `
+      query {
+        ${queryParts}
+      }
+    `;
+
     const response = await fetch('https://api.github.com/graphql', {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        query: `
-          query($username: String!) {
-            user(login: $username) {
-              repositories(first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
-                nodes {
-                  id
-                  name
-                  description
-                  primaryLanguage {
-                    name
-                  }
-                  stargazerCount
-                  forkCount
-                  updatedAt
-                  url
-                  isPrivate
-                }
-              }
-            }
-          }
-        `,
-        variables: { username },
+        query,
       }),
     });
 
@@ -694,36 +736,50 @@ async function fetchGitHubRepositoriesWithDependencies(username: string, token?:
       );
     }
     
-    const user = data.data?.user;
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    const repositories = user.repositories.nodes;
-
-    // Filter out excluded repositories
-    const filteredRepositories = repositories.filter((repo: { name: string }) => 
-      !excludedRepos.includes(repo.name)
-    );
+    // Extract repositories from aliased results and map them to their owners
+    // Filter out null values (repos that don't exist or aren't accessible)
+    const repositoriesWithOwners = Object.entries(data.data || {})
+      .map(([alias, repo]: [string, unknown]) => {
+        if (repo === null) return null;
+        const index = parseInt(alias.replace('repo', ''));
+        const repoInfoItem = repoInfo[index];
+        if (!repoInfoItem) return null;
+        
+        return {
+          repo: repo as {
+            id: string;
+            name: string;
+            description: string | null;
+            primaryLanguage: { name: string } | null;
+            stargazerCount: number;
+            forkCount: number;
+            updatedAt: string;
+            url: string;
+            isPrivate: boolean;
+          },
+          owner: repoInfoItem.owner,
+        };
+      })
+      .filter((item): item is { repo: {
+        id: string;
+        name: string;
+        description: string | null;
+        primaryLanguage: { name: string } | null;
+        stargazerCount: number;
+        forkCount: number;
+        updatedAt: string;
+        url: string;
+        isPrivate: boolean;
+      }; owner: string } => item !== null);
 
     // Now fetch package.json for each repository
     const reposWithDependencies = await Promise.all(
-       filteredRepositories.map(async (repo: { 
-         id: string; 
-         name: string; 
-         description: string | null; 
-         primaryLanguage: { name: string } | null; 
-         stargazerCount: number; 
-         forkCount: number; 
-         updatedAt: string; 
-         url: string; 
-         isPrivate: boolean; 
-       }) => {
+       repositoriesWithOwners.map(async ({ repo, owner }) => {
         let dependencies = null;
         
         try {
           const packageResponse = await fetch(
-            `https://api.github.com/repos/${username}/${repo.name}/contents/package.json`,
+            `https://api.github.com/repos/${owner}/${repo.name}/contents/package.json`,
             {
               headers: {
                 'Accept': 'application/vnd.github.v3.raw',

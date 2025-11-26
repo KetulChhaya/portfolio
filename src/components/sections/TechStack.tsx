@@ -79,19 +79,10 @@ import {
   FaJava,
   FaAws,
 } from 'react-icons/fa';
+import { useTheme } from 'next-themes';
 
-// Repositories to exclude from tech stack analysis
-const EXCLUDED_REPOSITORIES = [
-  'TeamGKT-CMSC447-5-PTAdvising',
-  'GuideDawg',
-  'CSEE-Virtual-Triage',
-  'team4-section6',
-  'Virtual-Triage-System',
-  'umbc-gps',
-  'Fall-2025-Campus-DoorDash',
-  'csee-triage-system',
-  'CSEE-Triage-SWE',
-];
+// Note: The included repositories list is now secured on the backend
+// See src/app/api/github/route.ts for the list
 
 
 // Icon mapping for technologies with brand colors
@@ -494,6 +485,7 @@ function getFrameworkMap(): { [key: string]: string[] } {
 }
 
 export function TechStack() {
+  const { resolvedTheme } = useTheme();
   const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
   const [dependencyTechs, setDependencyTechs] = useState<Map<string, GitHubRepository[]>>(new Map());
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
@@ -506,10 +498,10 @@ export function TechStack() {
     const loadRepositories = async () => {
       try {
         setIsLoading(true);
-        // Fetch repositories with dependencies from the API, excluding specified repos
+        // Fetch repositories with dependencies from the API
+        // The included repositories list is secured on the backend
         const repos = await fetchGitHubRepositoriesWithDependencies(
-          PROFILES.github, 
-          EXCLUDED_REPOSITORIES
+          PROFILES.github
         );
         setRepositories(repos);
         
@@ -620,7 +612,7 @@ export function TechStack() {
 
   if (isLoading) {
     return (
-      <section id="stack" className="section-padding bg-muted/30">
+      <section id="stack" className="section-padding">
         <div className="container-responsive">
           <div className="mx-auto max-w-7xl">
             <div className="mb-12 lg:mb-16">
@@ -641,7 +633,7 @@ export function TechStack() {
   const hasTechs = techsWithRepos.length > 0;
 
   return (
-    <section id="stack" className="section-padding bg-muted/30">
+    <section id="stack" className="section-padding">
       <div className="container-responsive">
         <motion.div
           variants={stagger}
@@ -764,7 +756,9 @@ export function TechStack() {
           isVisible={true}
           position={tooltipPosition}
           placement={tooltipPlacement}
-          techColor={techIcons[hoveredTech]?.color || '#6366f1'}
+          techColor={
+            // techIcons[hoveredTech]?.color ||
+             resolvedTheme === 'dark' ? '#000000' : '#ffffff'}
         />
       )}
     </section>

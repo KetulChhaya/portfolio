@@ -52,7 +52,7 @@ const educationData = [
 
 export function Education() {
   return (
-    <section id="education" className="section-padding">
+    <section id="education" className="section-padding section-alt-bg">
       <div className="container-responsive">
         <motion.div
           variants={stagger}

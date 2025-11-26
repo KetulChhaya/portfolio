@@ -85,38 +85,40 @@
 }
 
 .dark {
-  /* Dark mode - more visible and greyish */
-  --background: oklch(0.08 0.003 240);
+  /* Dark mode - dark grey background with variants */
+  --background: oklch(0.15 0.003 240);
   --foreground: oklch(0.94 0.005 85);
-  --card: oklch(0.12 0.005 240);
+  --card: oklch(0.18 0.005 240);
   --card-foreground: oklch(0.94 0.005 85);
-  --popover: oklch(0.12 0.005 240);
+  --popover: oklch(0.18 0.005 240);
   --popover-foreground: oklch(0.94 0.005 85);
   --primary: oklch(0.94 0.005 85);
-  --primary-foreground: oklch(0.08 0.003 240);
-  --secondary: oklch(0.18 0.008 240);
+  --primary-foreground: oklch(0.15 0.003 240);
+  --secondary: oklch(0.22 0.008 240);
   --secondary-foreground: oklch(0.94 0.005 85);
-  --muted: oklch(0.18 0.008 240);
+  --muted: oklch(0.22 0.008 240);
   --muted-foreground: oklch(0.65 0.005 85);
-  --accent: oklch(0.18 0.008 240);
+  --accent: oklch(0.22 0.008 240);
   --accent-foreground: oklch(0.94 0.005 85);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.25 0.008 240);
-  --input: oklch(0.18 0.008 240);
+  --border: oklch(0.28 0.008 240);
+  --input: oklch(0.22 0.008 240);
   --ring: oklch(0.94 0.005 85);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.12 0.005 240);
+  --sidebar: oklch(0.18 0.005 240);
   --sidebar-foreground: oklch(0.94 0.005 85);
   --sidebar-primary: oklch(0.94 0.005 85);
-  --sidebar-primary-foreground: oklch(0.08 0.003 240);
-  --sidebar-accent: oklch(0.18 0.008 240);
+  --sidebar-primary-foreground: oklch(0.15 0.003 240);
+  --sidebar-accent: oklch(0.22 0.008 240);
   --sidebar-accent-foreground: oklch(0.94 0.005 85);
-  --sidebar-border: oklch(0.25 0.008 240);
+  --sidebar-border: oklch(0.28 0.008 240);
   --sidebar-ring: oklch(0.94 0.005 85);
+  /* Section background variant for alternating sections */
+  --section-alt: oklch(0.20 0.005 240);
 }
 
 @layer base {
@@ -327,5 +329,33 @@
 
   .grid-responsive-3 {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  /* Section background for alternating sections */
+  .section-alt-bg {
+    @apply bg-muted/40;
+  }
+
+  .dark .section-alt-bg {
+    background-color: var(--section-alt);
+  }
+
+  /* Navigation glass effect - works in both light and dark mode */
+  .nav-glass {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  .dark .nav-glass {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Firefox backdrop-filter support */
+  @-moz-document url-prefix() {
+    .nav-glass {
+      background: rgba(255, 255, 255, 0.7) !important;
+    }
+    .dark .nav-glass {
+      background: rgba(255, 255, 255, 0.1) !important;
+    }
   }
 }

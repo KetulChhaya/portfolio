@@ -209,9 +209,9 @@ export async function fetchGitHubRepositories(username: string): Promise<GitHubR
 }
 
 // New function to fetch repositories with dependencies
+// Note: The included repositories list is secured on the backend
 export async function fetchGitHubRepositoriesWithDependencies(
-  username: string, 
-  excludedRepos?: string[]
+  username: string
 ): Promise<GitHubRepository[]> {
   try {
     const response = await fetch('/api/github', {
@@ -221,8 +221,7 @@ export async function fetchGitHubRepositoriesWithDependencies(
       },
       body: JSON.stringify({ 
         username, 
-        type: 'repositories-with-dependencies',
-        excludedRepos: excludedRepos || []
+        type: 'repositories-with-dependencies'
       }),
     });
 

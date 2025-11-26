@@ -81,7 +81,7 @@ export function ThemeToggle() {
         }}
         className="absolute cursor-pointer"
       >
-        <Moon size={18} />
+        <Moon size={16} />
       </motion.div>
     </Button>
   );
