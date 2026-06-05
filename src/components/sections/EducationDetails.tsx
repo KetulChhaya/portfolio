@@ -35,11 +35,18 @@ const educationData = [
     gpa: '4.0',
     semesters: [
       {
+        name: 'Spring 2026',
+        courses: [
+          { code: 'CMSC 691', name: 'Special Topics: Brain-Computer Interfaces', grade: 'A', credits: 3 },
+          { code: 'HCC 700', name: 'Independent Study: Human Centered Computing', grade: 'A', credits: 3 },
+        ]
+      },
+      {
         name: 'Fall 2025',
         courses: [
-          { code: 'CMSC 611', name: 'Advanced Computer Architecture', grade: 'In Progress', credits: 3 },
-          { code: 'CMSC 643', name: 'Quantum Computation', grade: 'In Progress', credits: 3 },
-          { code: 'CMSC 691', name: 'Active Cyberdefense', grade: 'In Progress', credits: 3 },
+          { code: 'CMSC 611', name: 'Advanced Computer Architecture', grade: 'A', credits: 3 },
+          { code: 'HCC 700', name: 'Independent Study: Human Centered Computing', grade: 'A', credits: 3 },
+          { code: 'CMSC 691', name: 'Active Cyberdefense', grade: 'A', credits: 3 },
         ]
       },
       {

@@ -15,7 +15,7 @@ const educationData = [
     subtitle: 'University of Maryland, Baltimore County',
     location: 'Baltimore, MD',
     period: 'Aug 2024 - Present',
-    ongoing: true,
+    ongoing: false,
     gpa: '4.0',
     technologies: [
       'Design and Analysis of Algorithms',

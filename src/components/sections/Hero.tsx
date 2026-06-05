@@ -128,12 +128,7 @@ export function Hero() {
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
                 <motion.a
-                  href={
-                    process.env.NEXT_PUBLIC_RESUME_URL ||
-                    'https://drive.google.com/file/d/11ShXTCzDhkrfcFCH5YLznlLnBcAh7fG2/view?usp=sharing'
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/web-resume"
                   className="bg-foreground text-background hover:bg-foreground/90 rounded-sm px-6 py-3 text-center text-sm font-medium transition-colors sm:px-8 sm:text-base"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}

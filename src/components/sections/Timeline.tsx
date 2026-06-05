@@ -8,12 +8,12 @@ const timelineData = [
   {
     id: 1,
     type: 'work',
-    title: 'Software Engineer Intern',
+    title: 'Software Engineer - Platform & AI',
     subtitle: 'BizChat',
     companyLink: 'https://bizchat-io.vercel.app',
     location: 'Baltimore, MD',
-    period: 'May 2025 - Present',
-    ongoing: true,
+    period: 'May 2025 - May 2026',
+    ongoing: false,
     description:
       'Focused on identifying friction points in the business-plan workflow by introducing structured activity logging that exposed how users interacted with prompts and edits. Strengthened cost visibility by adding real-time token-spend tracking tied to sessions, helping identify inefficiencies early. Enhanced evaluation of AI output quality by implementing a comparison system that surfaced recurring gaps between generated content and user revisions.',
     icon: Briefcase,

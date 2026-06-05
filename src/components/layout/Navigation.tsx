@@ -19,10 +19,48 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ];
 
+const COLOR_THEMES = ['default', 'mint', 'currant', 'ube', 'pistachio', 'almond'] as const;
+type ColorTheme = typeof COLOR_THEMES[number];
+
+const THEME_SWATCHES: Record<ColorTheme, { light: string; label: string }> = {
+  default:     { light: 'oklch(0.12 0.008 85)',    label: 'Default'     },
+  mint:        { light: 'oklch(0.7 0.16 186.47)',  label: 'Mint'        },
+  currant:     { light: 'oklch(0.76 0.13 258.76)', label: 'Currant'     },
+  ube:         { light: 'oklch(0.79 0.12 293.71)', label: 'Ube'         },
+  pistachio:   { light: 'oklch(0.78 0.13 138.5)',    label: 'Pistachio'   },
+  almond:      { light: 'oklch(0.74 0.09 78.3)',    label: 'Almond'      },
+};
+
+function useColorTheme() {
+  const [colorTheme, setColorThemeState] = useState<ColorTheme>('default');
+
+  useEffect(() => {
+    const saved = (localStorage.getItem('color-theme') as ColorTheme) || 'default';
+    setColorThemeState(saved);
+    if (saved !== 'default') {
+      document.documentElement.setAttribute('data-color-theme', saved);
+    }
+  }, []);
+
+  const setColorTheme = (theme: ColorTheme) => {
+    setColorThemeState(theme);
+    localStorage.setItem('color-theme', theme);
+    if (theme === 'default') {
+      document.documentElement.removeAttribute('data-color-theme');
+    } else {
+      document.documentElement.setAttribute('data-color-theme', theme);
+    }
+  };
+
+  return { colorTheme, setColorTheme };
+}
+
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [heroScrolled, setHeroScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showThemePicker, setShowThemePicker] = useState(false);
+  const { colorTheme, setColorTheme } = useColorTheme();
   const router = useRouter();
 
   useEffect(() => {
@@ -180,6 +218,50 @@ export function Navigation() {
                 </motion.div>
               </motion.div>
               
+              {/* Color theme picker */}
+              <div className="relative">
+                <motion.button
+                  onClick={() => setShowThemePicker(p => !p)}
+                  className="h-9 w-9 flex items-center justify-center rounded-lg transition-all duration-200 hover:bg-white/20 dark:hover:bg-white/10"
+                  title="Color theme"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span
+                    className="w-4 h-4 rounded-full border border-border/50 transition-all duration-200"
+                    style={{ background: THEME_SWATCHES[colorTheme].light }}
+                  />
+                </motion.button>
+                <AnimatePresence>
+                  {showThemePicker && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-11 z-50 rounded-xl border border-white/20 dark:border-white/10 shadow-xl p-2 flex flex-col gap-1 min-w-[120px]"
+                      style={{ background: 'var(--background)', backdropFilter: 'blur(16px)' }}
+                    >
+                      {COLOR_THEMES.map(t => (
+                        <button
+                          key={t}
+                          onClick={() => { setColorTheme(t); setShowThemePicker(false); }}
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors duration-150 hover:bg-white/10 dark:hover:bg-white/10 w-full text-left"
+                          style={{ color: 'var(--foreground)', fontWeight: t === colorTheme ? 600 : 400 }}
+                        >
+                          <span
+                            className="w-3.5 h-3.5 rounded-full border border-border/60 shrink-0"
+                            style={{ background: THEME_SWATCHES[t].light, opacity: t === 'default' ? 0.5 : 1 }}
+                          />
+                          {THEME_SWATCHES[t].label}
+                          {t === colorTheme && <span className="ml-auto text-xs opacity-60">✓</span>}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <ThemeToggle />
             </div>
 
