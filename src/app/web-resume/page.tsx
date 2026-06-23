@@ -18,10 +18,9 @@ import { useEffect, useRef, useState } from 'react';
 import {
   resumeHeader as header,
   resumeExperiences as experiences,
-  resumeOpenSource as openSource,
+  resumeProjects as projects,
   resumeSkills as skills,
   resumeEducation as education,
-  resumePublications as publications,
 } from '@/lib/constants/resume-data';
 
 // ─── Font scale ───────────────────────────────────────────────────────────────
@@ -436,12 +435,12 @@ export default function WebResumePage() {
               </div>
             </motion.section>
 
-            {/* ── Open Source ── */}
+            {/* ── Projects ── */}
             <motion.section variants={fadeInUp}>
-              <SectionHeading>Open Source</SectionHeading>
+              <SectionHeading>Projects</SectionHeading>
 
               <div className="space-y-5">
-                {openSource.map((proj) => (
+                {projects.map((proj) => (
                   <motion.div key={proj.name} variants={fadeInUp} className="group">
                     <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-2 gap-y-1">
                       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -568,53 +567,6 @@ export default function WebResumePage() {
                 ))}
               </div>
             </motion.section>
-
-            {/* ── Publications ── */}
-            {publications.length > 0 && (
-              <motion.section variants={fadeInUp}>
-                <SectionHeading>Publications</SectionHeading>
-
-                <div className="space-y-4">
-                  {publications.map((pub) => (
-                    <motion.div key={pub.title} variants={fadeInUp}>
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <h3
-                            className="text-[0.875em] font-semibold leading-snug"
-                            style={{ color: 'var(--rb-fg)' }}
-                          >
-                            {pub.title}
-                          </h3>
-                          <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[0.781em]">
-                            <span style={{ color: 'var(--rb-muted)' }}>{pub.venue}</span>
-                            <span style={{ color: 'var(--rb-border)' }}>·</span>
-                            <span style={{ color: 'var(--rb-muted)' }}>{pub.note}</span>
-                          </div>
-                        </div>
-
-                        <div className="shrink-0 text-right">
-                          <div className="text-[0.75em]" style={{ color: 'var(--rb-muted)' }}>
-                            {pub.year}
-                          </div>
-                          {pub.link && (
-                            <a
-                              href={pub.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="mt-0.5 flex items-center justify-end gap-1 text-[0.6875em] transition-opacity duration-200 hover:opacity-60"
-                              style={{ color: 'var(--rb-accent)' }}
-                            >
-                              DOI
-                              <ExternalLink size={9} />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.section>
-            )}
           </motion.div>
           </motion.div>
 

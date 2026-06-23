@@ -26,10 +26,11 @@ export const resumeExperiences = [
     period: 'May 2025 – May 2026',
     current: true,
     bullets: [
-      'Architected a scalable, provider-agnostic AI service exposing RESTful APIs across AWS Bedrock, OpenAI, and Hugging Face, routing Claude, Llama, and GPT by content type and user profile, lifting first-draft acceptance from 45% to 72%.',
-      'Shipped a section-level revision pipeline with human-in-loop using LangChain and TypeScript for approve/edit/skip actions, enabling targeted AI re-prompts instead of full plan regeneration and cutting per-revision cost up to 65%.',
-      'Instrumented Datadog APM observability with distributed tracing across AI request pipelines, tracking model latency, provider failures/fault tolerance, and token consumption to cut production triage time by 60%.',
-      'Engineered event-driven operational dashboards with React over a Firestore events layer, giving researchers real-time visibility into 100K+ onboarding, plan-generation, and survey events without writing queries.',
+      'Architected a provider-agnostic AI proxy platform engine using Node.js and AWS Bedrock, improving first-draft payload acceptance from 45% to 72% by designing a dynamic runtime routing layer based on content schemas, latency profiles, and fallback thresholds.',
+      'Shipped section-level agents pipeline with human-in-loop using LangGraph, LangChain and TypeScript for approve/edit/skip actions, enabling targeted AI re-prompts instead of full regeneration, cutting per-revision cost up to 65%.',
+      'Created and open-sourced a TypeScript observability npm package tracking token usage, latency, and per-endpoint cost; deployed in BizChat, surfacing a 37% cost overrun fixed via model rerouting.',
+      'Built an event-driven analytics dashboard using React and Firestore, scaling data ingestion to process 100K+ live events without query degradation, reducing internal product debugging times for researchers.',
+      'Built an automated test suite using Playwright for distinct features, integrating it into CI pipelines across multiple environments with Slack and email failure alerts to prevent production regressions.',
     ],
   },
   {
@@ -37,14 +38,13 @@ export const resumeExperiences = [
     company: 'Aavenir',
     companyLink: 'https://aavenir.com',
     location: 'Ahmedabad, GJ',
-    period: 'Jan 2023 – Jun. 2024',
+    period: 'Jan 2023 – Jun 2024',
     current: false,
     bullets: [
-      'Built a Python asynchronous ETL data pipeline orchestrating AI-driven metadata extraction, field mapping, and lifecycle updates across 8,000+ legacy contracts, compressing migration from 2 weeks to 5 days.',
-      'Created health monitoring and alerting workflows for contract approval services, exposing workflow bottlenecks and reducing incident resolution time through proactive operational visibility.',
-      'Maintained GitHub Actions CI/CD pipeline with automated test gates, environment-specific deployments, and build failure alerts, reducing manual deployment steps and catching regressions before production.',
-      'Designed and implemented a NestJS approval microservice with RESTful APIs supporting hybrid parallel/sequential routing and amount-based rules, automating 72+ approvals/month and cutting processing time 45%.',
-      'Implemented an approval system UI using Angular with workflow configuration, trigger controls, and approval history timeline.',
+      'Designed a high-throughput asynchronous ETL pipeline in Python, compressing enterprise data migration time from 14 days to 5 days by implementing parallel workers and optimizing batch metadata writes across 8,000+ relational entities.',
+      'Implemented a real-time concurrency management layer using JavaScript webhooks, completely eliminating document write collisions across 6+ simultaneous reviewers by synchronizing live session states into ServiceNow.',
+      'Authored a core approval engine microservice utilizing distributed RESTful APIs, automating over 72 critical enterprise approvals monthly and cutting system processing latency by 45% through conditional parallel and sequential evaluation trees.',
+      'Implemented workflow administration console using AngularJS supporting approval configuration, trigger orchestration, delegation management, and audit timeline visualization, reducing manual workflow management effort by 35%.',
     ],
   },
   {
@@ -55,57 +55,57 @@ export const resumeExperiences = [
     period: 'Oct 2022 – Dec 2022',
     current: false,
     bullets: [
-      'Replaced per-request MongoDB ranking aggregations with a scheduled precompute job and Redis caching layer, improving scalability and cutting API response from 5s to 800ms on profile and comparison pages.',
-      'Built a Node.js order-status chat service connecting buyers and sellers in real time on Azure Web PubSub, with custom WebSocket reconnection and email fallback for offline users, cutting support tickets 38%.',
-      'Developed a full-stack CMS with React, Express, and MongoDB enabling marketing to publish landing pages, banners, and promotions independently, eliminating 12 engineering tickets per week.',
-      'Developed unit and integration test suites for user and product API endpoints, increasing release confidence 38% and preventing regressions during frequent deployments.',
+      'Optimized database throughput by replacing heavy, per-request MongoDB aggregations with scheduled cron pre-computations and a Redis caching tier, accelerating API response times from 5,000ms to 800ms on high-traffic product profile pages.',
+      'Built an order-status chat service using Node.js and Azure Web PubSub, connecting buyers and sellers, with custom WebSocket reconnection and email fallback for offline users, cutting support tickets 38%.',
+      'Headed the full-stack migration of core content assets from WordPress to an internal React, Express, and MongoDB CMS, enabling seamless self-service marketing deployment while saving 12 engineering tickets weekly in engineering operational overhead.',
+      'Developed robust unit and functional tests using Jest and Supertest for backend microservices and RESTful API endpoints, working under senior supervision to increase release confidence by 38%.',
     ],
   },
 ];
 
-export const resumeOpenSource = [
+export const resumeProjects = [
   {
-    name: 'Tokenwise Tracker',
-    tech: ['Node.js', 'OpenAI SDK', 'Observability'],
+    name: 'TokenWise Tracker',
+    tech: ['TypeScript', 'Node.js', 'OpenAI SDK'],
     link: 'https://npmjs.com/package/tokenwise-tracker',
     linkLabel: 'npmjs.com/package/tokenwise-tracker',
     bullet:
-      'Built observability middleware inspired by Datadog APM, collecting request traces, token usage, latency distributions, and cost metrics for OpenAI-powered applications, enabling proactive performance monitoring and anomaly detection.',
+      'Developed an open source TypeScript middleware package tracking LLM token usage, latency, and costs inside database logging layers to provide a plug and play telemetry and observability module.',
+  },
+  {
+    name: 'PayPipe',
+    tech: ['FastAPI', 'Apache Kafka', 'Docker', 'Python'],
+    link: 'https://github.com/KetulChhaya/PayPipe',
+    linkLabel: 'github.com/KetulChhaya/PayPipe',
+    bullet:
+      'Engineered an event driven payment architecture using FastAPI and Apache Kafka, implementing distributed consumer idempotency to safely prevent duplicate transaction processing across Docker microservices.',
   },
   {
     name: 'Repo Graph',
-    tech: ['Node.js', 'TypeScript', 'SQLite', 'MCP'],
+    tech: ['TypeScript', 'Node.js', 'MCP Server'],
     link: 'https://github.com/KetulChhaya/repo-graph',
     linkLabel: 'github.com/KetulChhaya/repo-graph',
     bullet:
-      'Designed a TypeScript code-graph engine (CLI, MCP server, dashboard) that parses JavaScript/TypeScript monorepos and runs BFS blast-radius, Tarjan cycle detection, and git-diff impact analysis; indexes 1,400+ files in 1.1s, exposes deterministic structural queries to AI coding agents over MCP.',
-  },
-  {
-    name: 'Production Reflow',
-    tech: ['TypeScript', 'Java', 'Luxon'],
-    link: 'https://github.com/KetulChhaya/scheduler-reflow',
-    linkLabel: 'github.com/KetulChhaya/scheduler-reflow',
-    bullet:
-      "Scheduling algorithm rescheduling manufacturing work orders after disruptions using Kahn's algorithm for topological ordering over a dependency DAG, then greedily assigning time slots respecting work-center exclusivity, shift boundaries, and maintenance windows.",
+      'Architected a TypeScript monorepo engine and MCP server indexing 1,400+ files in 1.1 seconds, running algorithms to detect circular dependency cycles across file imports and exports for structural AI queries.',
   },
 ];
 
 export const resumeSkills = [
   {
-    label: 'Languages & Frontend',
-    items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'C# (.NET)', 'SQL', 'React', 'Angular', 'HTML', 'CSS'],
+    label: 'Languages / Databases',
+    items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'SQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Kafka', 'Firebase/Firestore', 'NoSQL'],
   },
   {
-    label: 'Backend & Data',
-    items: ['Node.js', 'NestJS', 'Express', 'FastAPI', 'GraphQL', 'REST/RESTful APIs', 'WebSockets', 'PostgreSQL', 'MongoDB', 'Redis', 'Firebase/Firestore', 'NoSQL'],
+    label: 'Frameworks / Libraries',
+    items: ['Node.js', 'NestJS', 'Express', 'Spring Boot', 'FastAPI', 'React', 'Angular', 'RESTful APIs', 'GraphQL', 'WebSockets', 'Tailwind CSS'],
   },
   {
-    label: 'AI / LLM',
-    items: ['AWS Bedrock', 'OpenAI', 'Anthropic', 'Hugging Face', 'RAG', 'LangChain', 'MCP', 'LLM Observability'],
+    label: 'Cloud / Tools',
+    items: ['AWS', 'GCP', 'Azure', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Datadog', 'Linux', 'Git', 'Jest', 'Supertest'],
   },
   {
-    label: 'Cloud & Tools',
-    items: ['AWS', 'Azure', 'Terraform', 'Datadog', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Linux', 'Git', 'Jest'],
+    label: 'AI / ML / LLM',
+    items: ['AWS Bedrock', 'OpenAI', 'Anthropic', 'Hugging Face', 'LangChain', 'MCP', 'RAG', 'LLM Observability'],
   },
 ];
 
@@ -125,15 +125,5 @@ export const resumeEducation = [
     school: 'Pandit Deendayal Energy University',
     location: 'Gandhinagar, GJ',
     period: 'Aug. 2019 – Dec. 2022',
-  },
-];
-
-export const resumePublications = [
-  {
-    title: 'Advent of Big Data Technology in Environment & Water Management',
-    venue: 'Springer ESPR',
-    year: '2021',
-    note: '34 citations',
-    link: 'https://link.springer.com/article/10.1007/s11356-021-14017-y',
   },
 ];
