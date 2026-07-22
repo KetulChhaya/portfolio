@@ -7,7 +7,7 @@ export const resumeHeader = {
   role: '',
   location: 'Germantown, MD',
   email: 'chhayaketul.dev@gmail.com',
-  phone: '443-851-9503',
+  phone: '408-987-8282',
   portfolio: { label: 'ketulchhaya.com', href: 'https://www.ketulchhaya.com' },
   linkedin: { label: 'LinkedIn', href: 'https://linkedin.com/in/ketul-chhaya' },
   github: { label: 'GitHub', href: 'https://github.com/KetulChhaya' },
@@ -26,10 +26,11 @@ export const resumeExperiences = [
     period: 'May 2025 – May 2026',
     current: true,
     bullets: [
-      'Shipped a multi-provider model router adopted by 64% of active users, enabling mid-session switching across OpenAI, Claude, Mistral, and Llama with zero context loss via Firebase-persisted session state.',
-      'Engineered a Firestore aggregation pipeline normalizing 100K+ heterogeneous usage events into structured competency metrics, surfaced via a React dashboard that backed an accepted CHI publication.',
-      'Open sourced tokenwise-tracker, a TypeScript proxy logging LLM cost, latency, and metadata per endpoint, exposing a custom scraping endpoint that drove 40% of token spend and cutting monthly LLM cost 25% after migrating it to Tavily.',
-      'Raised business-plan exports 70% by building a section-revision pipeline using TypeScript and Next.js with human-in-the-loop evaluation tied to user onboarding context.',
+      'Shipped a multi provider model router adopted by 64% of active users, enabling mid-session switching across OpenAI, Claude, Mistral, and Llama with zero context loss via Firebase persisted session state.',
+      'Engineered a TypeScript/Firestore pipeline aggregating 100K+ telemetry events into human-AI collaboration metrics, surfaced via a React dashboard for a CHI publication.',
+      'Reduced monthly LLM costs by migrating a scraping workload that drove 40% of token spend, identified via a self built open-source TypeScript proxy (tokenwise-tracker).',
+      'Built a streaming AI edit pipeline in TypeScript, Next.js, and AWS Bedrock, where the LLM emits NDJSON ops against a custom ProseMirror section schema, replacing a 700-line fuzzy matcher.',
+      'Shipped inline accept/reject diffs with per-edit outcome logging, creating a human-in-the-loop funnel measuring AI suggestion acceptance.',
       'Automated an end-to-end Playwright test suite covering the full user journey across Chromium, Firefox, and WebKit, with Slack alerts and report links that caught regressions before production.',
     ],
   },
@@ -65,12 +66,20 @@ export const resumeExperiences = [
 
 export const resumeProjects = [
   {
+    name: 'CiteSight – GEO Agent',
+    tech: ['FastAPI', 'React', 'LangGraph', 'Postgres', 'Docker'],
+    link: 'https://github.com/KetulChhaya/GEO-Agent',
+    linkLabel: 'github.com/KetulChhaya/GEO-Agent',
+    bullet:
+      'Building LangGraph and Temporal pipeline that crawls sites into pgvector, probes Claude/GPT/Gemini in parallel on buyer intent questions, and scores brand visibility via cosine similarity gaps with sourced fixes.',
+  },
+  {
     name: 'PayPipe',
     tech: ['FastAPI', 'Apache Kafka', 'Docker', 'Python'],
     link: 'https://github.com/KetulChhaya/PayPipe',
     linkLabel: 'github.com/KetulChhaya/PayPipe',
     bullet:
-      'Built an event-driven payment service with FastAPI and Kafka that prevents double charges using Redis SETNX idempotency keys, with exponential backoff retries and a dead-letter queue.',
+      'Designed a fault-tolerant, event-driven payment pipeline (FastAPI, Kafka) achieving exactly-once processing guarantees via Redis SETNX idempotency keys, with exponential backoff retries and a dead-letter queue to isolate failures.',
   },
   {
     name: 'Repo Graph',
@@ -88,14 +97,6 @@ export const resumeProjects = [
     bullet:
       "Designed a TypeScript production-scheduling engine that reflows orders around delays and maintenance windows via Kahn's topological sort and greedy shift-aware placement, covered by 16 Vitest cases.",
   },
-  {
-    name: 'Spotify Mixer',
-    tech: ['React', 'TypeScript', 'Web Audio API'],
-    link: 'https://github.com/KetulChhaya/spotify-mixer',
-    linkLabel: 'github.com/KetulChhaya/spotify-mixer',
-    bullet:
-      'Developed a browser-based DJ mixer in React and TypeScript that crossfades and beat-syncs two live Spotify decks in real time through a Web Audio API graph of gain and filter nodes.',
-  },
 ];
 
 export const resumeSkills = [
@@ -105,19 +106,19 @@ export const resumeSkills = [
   },
   {
     label: 'Backend',
-    items: ['Node.js', 'Express', 'NestJS', 'FastAPI', 'React', 'Next.js', 'Angular', 'REST APIs', 'GraphQL', 'WebSockets', 'Microservices', 'ServiceNow'],
+    items: ['Node.js', 'Express', 'NestJS', 'FastAPI', 'React', 'Next.js', 'Angular', 'REST APIs', 'GraphQL', 'WebSockets', 'ServiceNow', 'Temporal'],
   },
   {
     label: 'Data',
-    items: ['MongoDB', 'PostgreSQL', 'Redis', 'Firebase/Firestore', 'Kafka'],
+    items: ['MongoDB', 'PostgreSQL', 'SQLite', 'Redis', 'Firebase/Firestore', 'Kafka'],
   },
   {
     label: 'DevOps',
-    items: ['AWS', 'GCP', 'Azure', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Datadog', 'Linux', 'Git', 'Jest', 'Playwright', 'Agile/Scrum'],
+    items: ['AWS', 'GCP', 'Azure', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Datadog', 'Linux', 'Git', 'Jest', 'Vitest', 'Playwright', 'Agile/Scrum'],
   },
   {
     label: 'AI / LLM',
-    items: ['AWS Bedrock', 'OpenAI', 'Anthropic', 'LangChain', 'MCP', 'RAG', 'Hugging Face'],
+    items: ['AWS Bedrock', 'OpenAI', 'Anthropic', 'LangChain', 'LangGraph', 'vector-embedding', 'MCP', 'RAG', 'Hugging Face'],
   },
 ];
 
