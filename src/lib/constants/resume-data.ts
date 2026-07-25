@@ -7,7 +7,7 @@ export const resumeHeader = {
   role: '',
   location: 'Germantown, MD',
   email: 'chhayaketul.dev@gmail.com',
-  phone: '408-987-8282',
+  phone: '443-851-9503',
   portfolio: { label: 'ketulchhaya.com', href: 'https://www.ketulchhaya.com' },
   linkedin: { label: 'LinkedIn', href: 'https://linkedin.com/in/ketul-chhaya' },
   github: { label: 'GitHub', href: 'https://github.com/KetulChhaya' },
