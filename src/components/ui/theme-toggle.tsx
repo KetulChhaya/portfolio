@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { Sun, Moon } from 'lucide-react';
@@ -19,14 +20,31 @@ export function ThemeToggle() {
 
   const isDark = mounted && resolvedTheme === 'dark';
 
-  const toggleTheme = () => {
-    // Colour transitions are scoped rather than global (see globals.css), so
-    // opt the whole tree into a one-off cross-fade for the length of the swap.
+  const applyTheme = (next: 'light' | 'dark') => {
+    // next-themes writes the class from an effect, which the View Transition
+    // callback must not wait for — flush it, then assert the class directly so
+    // the "after" snapshot is guaranteed to be the new theme.
+    flushSync(() => setTheme(next));
     const root = document.documentElement;
-    root.classList.add('theme-transition');
-    window.setTimeout(() => root.classList.remove('theme-transition'), 420);
+    root.classList.toggle('dark', next === 'dark');
+    root.style.colorScheme = next;
+  };
 
-    setTheme(isDark ? 'light' : 'dark');
+  const toggleTheme = () => {
+    const next = isDark ? 'light' : 'dark';
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    // One GPU-composited cross-fade instead of transitioning every element.
+    // Not supported in Firefox yet — there the theme just switches instantly.
+    if (!document.startViewTransition || prefersReducedMotion) {
+      applyTheme(next);
+      return;
+    }
+
+    document.startViewTransition(() => applyTheme(next));
   };
 
   return (

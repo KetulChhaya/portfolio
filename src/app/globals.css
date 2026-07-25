@@ -368,18 +368,6 @@
     transition-duration: 0.2s;
   }
 
-  /* One-off global colour cross-fade, added to <html> only while the theme is
-     being switched. Transform/filter are excluded so it can't fight Motion. */
-  .theme-transition *,
-  .theme-transition *::before,
-  .theme-transition *::after {
-    transition-property:
-      color, background-color, border-color, text-decoration-color, fill,
-      stroke, box-shadow !important;
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
-    transition-duration: 0.4s !important;
-  }
-
   /* Opt-in GPU promotion. Applied to elements that actually animate, and
      cleared once they settle so we don't leak layers. */
   .gpu-layer {
@@ -390,6 +378,44 @@
 
   .gpu-layer-settled {
     will-change: auto;
+  }
+
+  /*
+   * Theme switching.
+   *
+   * A global `transition: background-color, color …` on every element used to
+   * drive this. It looked fine but cost ~7 dropped frames per toggle: the page
+   * has ~59 backdrop-filter elements, and each one re-rasterises its blur on
+   * every frame of the fade.
+   *
+   * The View Transition API does the same cross-fade with one GPU-composited
+   * snapshot pair instead, so element count stops mattering. Browsers without
+   * it (Firefox today) simply switch instantly, which is fast and correct.
+   */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    /* The two snapshots are opaque; blending them additively causes a bright
+       flash mid-fade, so keep them straight-alpha. */
+    mix-blend-mode: normal;
+  }
+
+  /* The outgoing snapshot sits on top and simply fades away. */
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 0;
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
   }
 
   /* Respect the OS motion preference everywhere, including Framer Motion,

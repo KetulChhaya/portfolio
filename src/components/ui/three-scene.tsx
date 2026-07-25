@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, memo, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useTheme } from 'next-themes';
 import { useReducedMotion } from 'framer-motion';
@@ -41,7 +41,16 @@ const PALETTES: Record<'light' | 'dark', ThemePalette> = {
 };
 
 interface TorusProps {
-  mode: 'light' | 'dark';
+  /**
+   * Current theme, passed as a ref rather than a prop on purpose.
+   *
+   * `mode` used to be a plain prop, which meant every theme toggle re-rendered
+   * <Canvas> and made r3f reconcile the whole scene — measured at ~110ms of the
+   * ~160ms toggle stall. The material already eases toward its target every
+   * frame, so reading the value inside useFrame gets the same cross-fade for
+   * zero React work.
+   */
+  modeRef: React.RefObject<'light' | 'dark'>;
   /** Normalised pointer position, -1..1 on both axes. Mutated by the parent. */
   pointer: React.RefObject<{ x: number; y: number }>;
   /** 0 at the top of the hero, 1 once the hero is fully scrolled past. */
@@ -50,7 +59,7 @@ interface TorusProps {
 }
 
 function FloatingTorus({
-  mode,
+  modeRef,
   pointer,
   scrollProgress,
   reduceMotion,
@@ -66,10 +75,10 @@ function FloatingTorus({
   // Live values we ease toward, so a theme switch crossfades instead of
   // remounting the canvas (which used to cause a visible flash).
   const current = useRef({
-    opacity: PALETTES[mode].opacity,
-    emissive: PALETTES[mode].emissive,
-    roughness: PALETTES[mode].roughness,
-    metalness: PALETTES[mode].metalness,
+    opacity: PALETTES[modeRef.current].opacity,
+    emissive: PALETTES[modeRef.current].emissive,
+    roughness: PALETTES[modeRef.current].roughness,
+    metalness: PALETTES[modeRef.current].metalness,
   });
 
   useFrame((state, delta) => {
@@ -91,7 +100,7 @@ function FloatingTorus({
     } else {
       state.camera.position.z = CAMERA_Z_END;
     }
-    const target = PALETTES[mode];
+    const target = PALETTES[modeRef.current];
     const group = groupRef.current;
 
     // --- Material crossfade -------------------------------------------------
@@ -186,16 +195,12 @@ function FloatingTorus({
             noise behind the hero copy — fewer, longer lines read as a cleaner
             ring and cost less fill. */}
         <torusGeometry args={[5.0, 1.4, 10, 40]} />
+        {/* Initial values only — every frame overwrites these from PALETTES. */}
         <meshStandardMaterial
           ref={outerMat}
-          color={PALETTES[mode].color}
           transparent
-          opacity={PALETTES[mode].opacity}
           wireframe
-          roughness={PALETTES[mode].roughness}
-          metalness={PALETTES[mode].metalness}
           emissive="#ffffff"
-          emissiveIntensity={PALETTES[mode].emissive}
           depthWrite={false}
         />
       </mesh>
@@ -204,7 +209,6 @@ function FloatingTorus({
         <torusGeometry args={[3.1, 0.16, 5, 44]} />
         <meshBasicMaterial
           ref={innerMat}
-          color={PALETTES[mode].color}
           transparent
           opacity={0.12}
           wireframe
@@ -215,30 +219,59 @@ function FloatingTorus({
   );
 }
 
+/** Light intensities per theme, eased in useFrame for the same reason as the
+ *  materials: changing them via props would re-render the whole Canvas. */
+const LIGHTS = {
+  light: { ambient: 0.9, key: 0.4, fill: 0.3, rim: 0.2 },
+  dark: { ambient: 0.6, key: 0.8, fill: 0.6, rim: 0.5 },
+} as const;
+
 function Scene({
-  mode,
+  modeRef,
   pointer,
   scrollProgress,
   reduceMotion,
 }: TorusProps) {
+  const ambient = useRef<THREE.AmbientLight>(null);
+  const key = useRef<THREE.PointLight>(null);
+  const fill = useRef<THREE.PointLight>(null);
+  const rim = useRef<THREE.PointLight>(null);
+
+  useFrame((_, delta) => {
+    const k = damp(4, Math.min(delta, 0.1));
+    const target = LIGHTS[modeRef.current];
+    if (ambient.current)
+      ambient.current.intensity +=
+        (target.ambient - ambient.current.intensity) * k;
+    if (key.current)
+      key.current.intensity += (target.key - key.current.intensity) * k;
+    if (fill.current)
+      fill.current.intensity += (target.fill - fill.current.intensity) * k;
+    if (rim.current)
+      rim.current.intensity += (target.rim - rim.current.intensity) * k;
+  });
+
   return (
     <>
-      <ambientLight intensity={mode === 'dark' ? 0.6 : 0.9} />
+      <ambientLight ref={ambient} intensity={LIGHTS[modeRef.current].ambient} />
       <pointLight
+        ref={key}
         position={[10, 10, 10]}
-        intensity={mode === 'light' ? 0.4 : 0.8}
+        intensity={LIGHTS[modeRef.current].key}
       />
       <pointLight
+        ref={fill}
         position={[-10, -5, 5]}
-        intensity={mode === 'light' ? 0.3 : 0.6}
+        intensity={LIGHTS[modeRef.current].fill}
       />
       <pointLight
+        ref={rim}
         position={[0, 0, 10]}
-        intensity={mode === 'light' ? 0.2 : 0.5}
+        intensity={LIGHTS[modeRef.current].rim}
       />
 
       <FloatingTorus
-        mode={mode}
+        modeRef={modeRef}
         pointer={pointer}
         scrollProgress={scrollProgress}
         reduceMotion={reduceMotion}
@@ -246,6 +279,61 @@ function Scene({
     </>
   );
 }
+
+// Hoisted so their identity is stable across renders — r3f re-applies these to
+// the renderer/camera whenever it sees a new object.
+const CAMERA_PROPS = {
+  position: [0, 0, CAMERA_Z_END] as [number, number, number],
+  fov: 50,
+  near: 0.1,
+  far: 1000,
+};
+const GL_PROPS = {
+  antialias: true,
+  alpha: true,
+  powerPreference: 'high-performance' as const,
+};
+const DPR: [number, number] = [1, 1.75];
+
+interface CanvasShellProps {
+  modeRef: React.RefObject<'light' | 'dark'>;
+  pointer: React.RefObject<{ x: number; y: number }>;
+  scrollProgress: React.RefObject<number>;
+  reduceMotion: boolean;
+  active: boolean;
+}
+
+/**
+ * Memoised so a theme change cannot reach it. Every prop is either a ref
+ * (stable identity) or a boolean that rarely changes, so React bails out of
+ * re-rendering the Canvas entirely when only the theme moved.
+ */
+const CanvasShell = memo(function CanvasShell({
+  modeRef,
+  pointer,
+  scrollProgress,
+  reduceMotion,
+  active,
+}: CanvasShellProps) {
+  return (
+    <Canvas
+      camera={CAMERA_PROPS}
+      gl={GL_PROPS}
+      dpr={DPR}
+      frameloop={active ? 'always' : 'never'}
+      fallback={<ThreeFallback />}
+    >
+      <Suspense fallback={null}>
+        <Scene
+          modeRef={modeRef}
+          pointer={pointer}
+          scrollProgress={scrollProgress}
+          reduceMotion={reduceMotion}
+        />
+      </Suspense>
+    </Canvas>
+  );
+});
 
 interface ThreeSceneProps {
   className?: string;
@@ -256,6 +344,10 @@ export function ThreeScene({ className = '' }: ThreeSceneProps) {
   const reduceMotion = useReducedMotion() ?? false;
   const mode: 'light' | 'dark' =
     (resolvedTheme || theme) === 'dark' ? 'dark' : 'light';
+
+  // The theme reaches the scene through this ref, never through props.
+  const modeRef = useRef<'light' | 'dark'>(mode);
+  modeRef.current = mode;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const pointer = useRef({ x: 0, y: 0 });
@@ -308,41 +400,19 @@ export function ThreeScene({ className = '' }: ThreeSceneProps) {
     return () => observer.disconnect();
   }, []);
 
-  // Cap DPR: above 2x the extra pixels buy nothing on a wireframe but cost a
-  // lot of fill rate on high-density displays.
-  const dpr = useMemo<[number, number]>(() => [1, 1.75], []);
-
   return (
     <div
       ref={containerRef}
       className={`relative h-full w-full ${className}`}
       style={{ overflow: 'hidden' }}
     >
-      <Canvas
-        camera={{
-          position: [0, 0, 8],
-          fov: 50,
-          near: 0.1,
-          far: 1000,
-        }}
-        gl={{
-          antialias: true,
-          alpha: true,
-          powerPreference: 'high-performance',
-        }}
-        dpr={dpr}
-        frameloop={active ? 'always' : 'never'}
-        fallback={<ThreeFallback />}
-      >
-        <Suspense fallback={null}>
-          <Scene
-            mode={mode}
-            pointer={pointer}
-            scrollProgress={scrollProgress}
-            reduceMotion={reduceMotion}
-          />
-        </Suspense>
-      </Canvas>
+      <CanvasShell
+        modeRef={modeRef}
+        pointer={pointer}
+        scrollProgress={scrollProgress}
+        reduceMotion={reduceMotion}
+        active={active}
+      />
     </div>
   );
 }

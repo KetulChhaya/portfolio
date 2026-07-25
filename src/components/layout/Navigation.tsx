@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { Menu, X, Github, Linkedin } from 'lucide-react';
@@ -42,13 +43,27 @@ function useColorTheme() {
   }, []);
 
   const setColorTheme = (theme: ColorTheme) => {
-    setColorThemeState(theme);
-    localStorage.setItem('color-theme', theme);
-    if (theme === 'default') {
-      document.documentElement.removeAttribute('data-color-theme');
-    } else {
-      document.documentElement.setAttribute('data-color-theme', theme);
+    const apply = () => {
+      flushSync(() => setColorThemeState(theme));
+      localStorage.setItem('color-theme', theme);
+      if (theme === 'default') {
+        document.documentElement.removeAttribute('data-color-theme');
+      } else {
+        document.documentElement.setAttribute('data-color-theme', theme);
+      }
+    };
+
+    // Same cross-fade as the light/dark toggle — swapping the palette repaints
+    // every surface, so let the compositor blend two snapshots instead.
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (!document.startViewTransition || prefersReducedMotion) {
+      apply();
+      return;
     }
+    document.startViewTransition(apply);
   };
 
   return { colorTheme, setColorTheme };
