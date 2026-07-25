@@ -95,12 +95,10 @@ export default function RootLayout({
           data-website-id="f0dc161d-0a75-4c71-816d-e6d1c4c74d50"
           strategy="afterInteractive"
         />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        {/* `disableTransitionOnChange` is deliberately off: the toggle now
+            drives a scoped 400ms colour cross-fade (see `.theme-transition`),
+            and that prop would suppress exactly that. */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
       </body>

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { SpotifyPlayer } from '@/components/ui/music-player';
-import { smoothFadeIn, smoothStagger } from '@/lib/constants/smooth-animations';
+import { smoothFadeIn, smoothStagger, revealViewport } from '@/lib/constants/smooth-animations';
 
 export function MusicSection() {
   // 📝 UPDATE: Replace with your actual Spotify song details
@@ -27,7 +27,7 @@ export function MusicSection() {
           variants={smoothStagger}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={revealViewport}
           className="mx-auto max-w-2xl"
         >
           {/* Section Header */}

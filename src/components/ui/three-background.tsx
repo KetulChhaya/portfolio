@@ -1,80 +1,99 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
-import { Suspense, useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useTheme } from 'next-themes';
+import { useReducedMotion } from 'framer-motion';
 
-function ParticleField() {
+const PARTICLE_COUNT = 420; // was 1000 — invisible difference on a phone, ~2.4x cheaper
+
+const COLORS = {
+  light: new THREE.Color('#7c3aed'),
+  dark: new THREE.Color('#a855f7'),
+};
+
+function damp(lambda: number, delta: number) {
+  return 1 - Math.exp(-lambda * delta);
+}
+
+function ParticleField({
+  mode,
+  reduceMotion,
+}: {
+  mode: 'light' | 'dark';
+  reduceMotion: boolean;
+}) {
   const ref = useRef<THREE.Points>(null);
-  const { theme, resolvedTheme } = useTheme();
-  const mode = resolvedTheme || theme || 'light';
+  const matRef = useRef<THREE.PointsMaterial>(null);
 
-  // Generate random particle positions
-  const [positions] = useMemo(() => {
-    const positions = new Float32Array(1000 * 3);
-
-    for (let i = 0; i < 1000; i++) {
-      // Spread particles in a large area
+  const geometry = useMemo(() => {
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 50;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
     }
-
-    return [positions];
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return geo;
   }, []);
 
-  useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.x = state.clock.elapsedTime * 0.05;
-      ref.current.rotation.y = state.clock.elapsedTime * 0.02;
-    }
+  useEffect(() => () => geometry.dispose(), [geometry]);
+
+  useFrame((state, delta) => {
+    const dt = Math.min(delta, 0.1);
+    // Crossfade the colour on theme change instead of remounting the canvas.
+    if (matRef.current) matRef.current.color.lerp(COLORS[mode], damp(4, dt));
+    if (reduceMotion || !ref.current) return;
+    ref.current.rotation.x = state.clock.elapsedTime * 0.03;
+    ref.current.rotation.y = state.clock.elapsedTime * 0.015;
   });
 
-  const baseColor = mode === 'dark' ? '#a855f7' : '#7c3aed';
-  const particleColor = baseColor;
-
   return (
-    <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
-      <PointMaterial
+    <points ref={ref} geometry={geometry} frustumCulled={false}>
+      <pointsMaterial
+        ref={matRef}
         transparent
-        color={particleColor}
+        color={COLORS[mode]}
         size={0.02}
-        sizeAttenuation={true}
+        sizeAttenuation
         depthWrite={false}
         opacity={0.3}
       />
-    </Points>
+    </points>
   );
 }
 
-function GridMesh() {
-  const { theme, resolvedTheme } = useTheme();
-  const mode = resolvedTheme || theme || 'light';
+function GridMesh({
+  mode,
+  reduceMotion,
+}: {
+  mode: 'light' | 'dark';
+  reduceMotion: boolean;
+}) {
   const meshRef = useRef<THREE.Mesh>(null);
+  const matRef = useRef<THREE.MeshBasicMaterial>(null);
 
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x =
-        Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
-      meshRef.current.rotation.z =
-        Math.sin(state.clock.elapsedTime * 0.15) * 0.05;
-    }
+  useFrame((state, delta) => {
+    const dt = Math.min(delta, 0.1);
+    if (matRef.current) matRef.current.color.lerp(COLORS[mode], damp(4, dt));
+    if (reduceMotion || !meshRef.current) return;
+    meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
+    meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.15) * 0.05;
   });
-
-  const baseColor = mode === 'dark' ? '#a855f7' : '#7c3aed';
-  const gridColor = baseColor;
 
   return (
     <mesh ref={meshRef} position={[0, 0, -10]} rotation={[Math.PI / 4, 0, 0]}>
-      <planeGeometry args={[20, 20, 20, 20]} />
+      {/* 12x12 segments instead of 20x20 — same read, fewer lines to raster. */}
+      <planeGeometry args={[20, 20, 12, 12]} />
       <meshBasicMaterial
-        color={gridColor}
+        ref={matRef}
+        color={COLORS[mode]}
         transparent
         opacity={0.05}
         wireframe
+        depthWrite={false}
       />
     </mesh>
   );
@@ -82,25 +101,39 @@ function GridMesh() {
 
 export function ThreeBackground() {
   const { resolvedTheme, theme } = useTheme();
-  const themeKey = resolvedTheme || theme || 'light';
+  const reduceMotion = useReducedMotion() ?? false;
+  const mode: 'light' | 'dark' =
+    (resolvedTheme || theme) === 'dark' ? 'dark' : 'light';
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="pointer-events-none absolute inset-0">
+    <div ref={containerRef} className="pointer-events-none absolute inset-0">
       <Canvas
-        key={themeKey}
-        camera={{
-          position: [0, 0, 10],
-          fov: 60,
-        }}
+        camera={{ position: [0, 0, 10], fov: 60 }}
         gl={{
-          antialias: false, // Disable for better performance
+          antialias: false,
           alpha: true,
-          powerPreference: 'high-performance',
+          powerPreference: 'low-power',
         }}
-        dpr={[1, 1.5]} // Lower DPR for better performance
+        dpr={[1, 1.25]}
+        frameloop={active ? 'always' : 'never'}
       >
         <Suspense fallback={null}>
-          <ParticleField />
-          <GridMesh />
+          <ParticleField mode={mode} reduceMotion={reduceMotion} />
+          <GridMesh mode={mode} reduceMotion={reduceMotion} />
         </Suspense>
       </Canvas>
     </div>

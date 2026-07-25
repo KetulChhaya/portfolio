@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { fadeInUp, stagger } from '@/lib/constants/animations';
+import { ScrollProgress } from '@/components/layout/ScrollProgress';
 import {
   MapPin,
   Mail,
@@ -156,6 +157,10 @@ export default function WebResumePage() {
         className="resume-page min-h-screen"
         style={{ background: 'var(--rb-bg)', color: 'var(--rb-fg)' }}
       >
+        <div className="print:hidden">
+          <ScrollProgress />
+        </div>
+
         {/* ── Top bar ── */}
         <header
           className="print:hidden sticky top-0 z-50"

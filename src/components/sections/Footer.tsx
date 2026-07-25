@@ -1,5 +1,7 @@
 'use client';
 
+import { revealViewport } from '@/lib/constants/smooth-animations';
+
 import { motion } from 'framer-motion';
 
 export function Footer() {
@@ -11,7 +13,7 @@ export function Footer() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={revealViewport}
           transition={{ duration: 0.5 }}
           className="text-center"
         >
@@ -22,7 +24,7 @@ export function Footer() {
             className="text-muted-foreground/60 mt-2 text-xs lg:text-sm"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={revealViewport}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             Built with ❤️ by K2L

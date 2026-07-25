@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { smoothFadeIn, smoothStagger } from '@/lib/constants/smooth-animations';
+import { smoothFadeIn, smoothStagger, revealViewport } from '@/lib/constants/smooth-animations';
 import { Consistency } from './Consistency';
 import { PROFILES } from '@/lib/constants/profiles';
 
@@ -16,7 +16,7 @@ export function About() {
           variants={smoothStagger}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={revealViewport}
           className="mx-auto max-w-6xl"
         >
           {/* Section Header with Toggle */}

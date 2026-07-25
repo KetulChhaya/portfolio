@@ -1,5 +1,7 @@
 'use client';
 
+import { revealViewport } from '@/lib/constants/smooth-animations';
+
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -77,7 +79,7 @@ export function Projects() {
           variants={stagger}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={revealViewport}
           className="mx-auto max-w-6xl"
         >
           {/* Section Header */}

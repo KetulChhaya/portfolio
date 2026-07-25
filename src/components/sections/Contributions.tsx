@@ -1,5 +1,7 @@
 'use client';
 
+import { revealViewport } from '@/lib/constants/smooth-animations';
+
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { BookOpen, ExternalLink, FileText, Github, Package } from 'lucide-react';
@@ -13,7 +15,7 @@ export function Contributions() {
                     variants={stagger}
                     initial="initial"
                     whileInView="animate"
-                    viewport={{ once: true, margin: '-100px' }}
+                    viewport={revealViewport}
                     className="mx-auto max-w-6xl"
                 >
                     {/* Section Header */}

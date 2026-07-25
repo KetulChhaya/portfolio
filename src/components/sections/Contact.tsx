@@ -1,5 +1,7 @@
 'use client';
 
+import { revealViewport } from '@/lib/constants/smooth-animations';
+
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -155,7 +157,7 @@ export function Contact() {
           className="mx-auto max-w-7xl"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={revealViewport}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           {/* Section Header */}

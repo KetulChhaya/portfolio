@@ -1,5 +1,7 @@
 'use client';
 
+import { revealViewport } from '@/lib/constants/smooth-animations';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { fadeInUp, stagger } from '@/lib/constants/animations';
 import { 
@@ -382,7 +384,7 @@ export function EducationDetails() {
           variants={stagger}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={revealViewport}
           className="mx-auto max-w-8xl relative"
         >
           {/* Back to Home Button */}

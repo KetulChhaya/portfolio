@@ -1,5 +1,7 @@
 'use client';
 
+import { revealViewport } from '@/lib/constants/smooth-animations';
+
 import { motion } from 'framer-motion';
 import { fadeInUp, stagger } from '@/lib/constants/animations';
 import { Calendar, MapPin, GraduationCap, ExternalLink } from 'lucide-react';
@@ -58,7 +60,7 @@ export function Education() {
           variants={stagger}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={revealViewport}
           className="mx-auto max-w-6xl"
         >
           {/* Section Header */}

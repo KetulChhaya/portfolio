@@ -1,5 +1,7 @@
 'use client';
 
+import { revealViewport } from '@/lib/constants/smooth-animations';
+
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { TechTooltip } from '@/components/ui/tech-tooltip';
@@ -639,7 +641,7 @@ export function TechStack() {
           variants={stagger}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={revealViewport}
           className="mx-auto max-w-7xl"
         >
           {/* Section Header */}
