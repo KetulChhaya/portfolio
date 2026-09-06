@@ -28,6 +28,90 @@ export function Contributions() {
 
                     {/* Contributions Grid */}
                     <div className="space-y-6 lg:space-y-8">
+                        {/* ACM CI 2026 Poster */}
+                        <motion.div
+                            variants={fadeInUp}
+                            whileHover={{ y: -2 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                        >
+                            <div className="bg-background/60 hover:bg-background/80 border-border/50 hover:border-border group relative overflow-hidden rounded-xl border p-6 transition-all duration-300 lg:p-8">
+                                {/* Content Grid */}
+                                <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
+                                    {/* Left: Main Content */}
+                                    <div className="lg:col-span-8">
+                                        <div className="mb-4 flex items-center gap-3 lg:mb-6">
+                                            <Badge variant="outline" className="text-sm">
+                                                Poster
+                                            </Badge>
+                                            <Badge variant="outline" className="text-sm">
+                                                Accepted
+                                            </Badge>
+                                        </div>
+
+                                        <h3 className="group-hover:text-foreground mb-4 text-xl font-semibold transition-colors lg:mb-6 lg:text-2xl">
+                                            Evaluating Beyond the Screen: Collective Assessment of AI-Generated Business Plans with Resource-Constrained Entrepreneurs
+                                        </h3>
+
+                                        <p className="text-muted-foreground mb-6 text-sm leading-relaxed lg:mb-8 lg:text-base">
+                                            Co-authored a poster on group-based evaluation of AI-generated business plans, extending BizChat with a claim-to-input evaluation module and studying its use in think-pair-share workshops with 14 resource-constrained entrepreneurs across Maryland community organizations.
+                                        </p>
+
+                                        {/* Technologies/Topics */}
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {['Human-AI Collaboration', 'Collective Intelligence', 'GenAI Evaluation', 'Entrepreneurship'].map((topic) => (
+                                                <span
+                                                    key={topic}
+                                                    className="bg-muted text-muted-foreground border-border inline-flex items-center rounded-full border text-xs px-2 py-1 font-normal"
+                                                >
+                                                    {topic}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Right: Links */}
+                                    <div className="lg:col-span-4">
+                                        <div className="bg-muted border-border/50 flex h-full flex-col justify-between rounded-lg border p-6">
+                                            <div>
+                                                <div className="text-muted-foreground/80 mb-4 text-xs font-medium uppercase tracking-wider">
+                                                    Links
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <a
+                                                        href="https://arxiv.org/abs/2608.16886"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="hover:text-foreground text-muted-foreground group flex items-center gap-2 text-sm transition-colors"
+                                                    >
+                                                        <FileText size={16} />
+                                                        <span className="group-hover:underline">arXiv preprint</span>
+                                                        <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                    </a>
+                                                    <a
+                                                        href="https://ci.acm.org/2026/"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="hover:text-foreground text-muted-foreground group flex items-center gap-2 text-sm transition-colors"
+                                                    >
+                                                        <BookOpen size={16} />
+                                                        <span className="group-hover:underline">ACM CI 2026</span>
+                                                        <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div className="mt-6 border-t border-border/50 pt-4">
+                                                <div className="text-muted-foreground/80 text-xs font-medium uppercase tracking-wider">
+                                                    Publication
+                                                </div>
+                                                <div className="text-foreground mt-1 text-sm">ACM CI &amp; HCOMP 2026 — Posters &amp; Demos</div>
+                                                <div className="text-muted-foreground mt-1 text-xs">Sep 27–30, 2026 • Virginia Tech</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
                         {/* TokenWise Tracker */}
                         <motion.div
                             variants={fadeInUp}

@@ -26,11 +26,11 @@ export const resumeExperiences = [
     period: 'May 2025 – May 2026',
     current: true,
     bullets: [
-      'Shipped a multi provider model router adopted by 64% of active users, enabling mid-session switching across OpenAI, Claude, Mistral, and Llama with zero context loss via Firebase persisted session state.',
+      'Reduced Firestore reads by 108x (2,800 to 26 per query) by building an inverted index, rebuilt weekly by a scheduled Cloud Run function that uses content hashing to update only changed records, and served through a Next.js API.',
+      'Shipped a multi-provider model router adopted by 64% of active users, enabling zero-loss mid-session switching across OpenAI, Claude, Mistral, and Llama via Firebase persistence.',
       'Engineered a TypeScript/Firestore pipeline aggregating 100K+ telemetry events into human-AI collaboration metrics, surfaced via a React dashboard for a CHI publication.',
-      'Reduced monthly LLM costs by migrating a scraping workload that drove 40% of token spend, identified via a self built open-source TypeScript proxy (tokenwise-tracker).',
+      'Reduced monthly LLM costs by migrating a scraping workload that drove 40% of token spend, identified via a self-built open-source TypeScript proxy, tokenwise-tracker.',
       'Built a streaming AI edit pipeline in TypeScript, Next.js, and AWS Bedrock, where the LLM emits NDJSON ops against a custom ProseMirror section schema, replacing a 700-line fuzzy matcher.',
-      'Shipped inline accept/reject diffs with per-edit outcome logging, creating a human-in-the-loop funnel measuring AI suggestion acceptance.',
       'Automated an end-to-end Playwright test suite covering the full user journey across Chromium, Firefox, and WebKit, with Slack alerts and report links that caught regressions before production.',
     ],
   },
@@ -42,9 +42,9 @@ export const resumeExperiences = [
     period: 'Jan 2023 – Jun 2024',
     current: false,
     bullets: [
-      'Cut contract migration from two weeks to five days with a Python ETL pipeline on ServiceNow workers that moved 8,000+ contracts into ContractFlow using AI metadata extraction.',
+      'Reduced contract migration time from two weeks to five days by building Python ETL pipelines and Spring Boot REST services, processing 8,000+ contracts with AI-driven metadata extraction.',
       'Prevented 6+ concurrent redlining collisions on shared contracts with a JavaScript webhook based locking and presence system between the Office.js Word add-in and ContractFlow portal.',
-      'Designed a provisioning engine that aggregated config across existing client environments into a reusable baseline, auto setting up new ContractFlow clients and saving 100+ engineering hours across 4 deployments.',
+      'Designed a Spring Boot provisioning service using dependency injection and modular service abstractions to aggregate configuration across client environments, saving 100+ engineering hours across 4 deployments.',
       'Scaled a NestJS approval microservice to route contracts through parallel or sequential approver chains by value, cutting approval turnaround 50% over the prior manual process.',
       'Implemented an AngularJS admin console to configure approvals, triggers, delegations, and audit timelines, cutting manual workflow effort 35%.',
     ],
@@ -57,9 +57,9 @@ export const resumeExperiences = [
     period: 'Jun 2022 – Dec 2022',
     current: false,
     bullets: [
-      'Optimized MongoDB ranking API from 5s to 800ms by offloading a global aggregation to a Node.js cron job that precomputed and cached scores every 2 hours.',
+      'Optimized MongoDB ranking API from 5s to 800ms by precomputing and caching scores via Node.js cron job, reducing query latency by 84%.',
       'Launched a real-time Node.js chat service on Azure Web PubSub with a React client linking buyers and sellers, with email fallback for offline users, cutting order-status support tickets by 40%.',
-      'Built an internal CMS in React, Express, and MongoDB that let marketing self-publish campaign pages and edit site content, removing roughly 12 engineering tickets per week.',
+      'Built internal CMS in React, Express, and MongoDB enabling marketing to self-publish campaign pages and edit site content, eliminating 12 engineering tickets per week.',
     ],
   },
 ];
@@ -71,7 +71,7 @@ export const resumeProjects = [
     link: 'https://github.com/KetulChhaya/GEO-Agent',
     linkLabel: 'github.com/KetulChhaya/GEO-Agent',
     bullet:
-      'Building LangGraph and Temporal pipeline that crawls sites into pgvector, probes Claude/GPT/Gemini in parallel on buyer intent questions, and scores brand visibility via cosine similarity gaps with sourced fixes.',
+      'Building a LangGraph and Temporal pipeline that crawls sites into pgvector, probes Claude/GPT/Gemini in parallel on buyer intent questions, and scores brand visibility via cosine similarity gaps with sourced fixes.',
   },
   {
     name: 'PayPipe',
@@ -102,23 +102,23 @@ export const resumeProjects = [
 export const resumeSkills = [
   {
     label: 'Languages',
-    items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'SQL'],
+    items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'SQL', 'HTML', 'CSS'],
   },
   {
-    label: 'Backend',
-    items: ['Node.js', 'Express', 'NestJS', 'FastAPI', 'React', 'Next.js', 'Angular', 'REST APIs', 'GraphQL', 'WebSockets', 'ServiceNow', 'Temporal'],
+    label: 'Frameworks',
+    items: ['Node.js', 'NestJS', 'Express', 'FastAPI', 'React', 'Next.js', 'Angular', 'Spring Boot', 'REST APIs', 'GraphQL'],
   },
   {
-    label: 'Data',
-    items: ['MongoDB', 'PostgreSQL', 'SQLite', 'Redis', 'Firebase/Firestore', 'Kafka'],
+    label: 'Data & Systems',
+    items: ['PostgreSQL', 'MongoDB', 'Firestore', 'Redis', 'Kafka', 'Temporal', 'WebSockets', 'Distributed Caching'],
   },
   {
-    label: 'DevOps',
-    items: ['AWS', 'GCP', 'Azure', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Datadog', 'Linux', 'Git', 'Jest', 'Vitest', 'Playwright', 'Agile/Scrum'],
+    label: 'Cloud & DevOps',
+    items: ['AWS', 'GCP', 'Azure', 'ServiceNow', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Datadog', 'Linux', 'JUnit', 'Jest', 'Vitest', 'Playwright'],
   },
   {
     label: 'AI / LLM',
-    items: ['AWS Bedrock', 'OpenAI', 'Anthropic', 'LangChain', 'LangGraph', 'vector-embedding', 'MCP', 'RAG', 'Hugging Face'],
+    items: ['AWS Bedrock', 'OpenAI', 'Anthropic', 'LangChain', 'LangGraph', 'RAG', 'MCP'],
   },
 ];
 
@@ -129,14 +129,14 @@ export const resumeEducation = [
     note: 'ranked #1 in cohort',
     school: 'University of Maryland, Baltimore County',
     location: 'Baltimore, MD',
-    period: 'Aug. 2024 – May 2026',
+    period: 'Aug 2024 – May 2026',
   },
   {
     degree: 'B.Tech. in Information & Communication Technology',
     gpa: 'GPA: 9.65/10',
-    note: 'Top 5',
+    note: 'Top 5 in cohort',
     school: 'Pandit Deendayal Energy University',
     location: 'Gandhinagar, GJ',
-    period: 'Aug. 2019 – Dec. 2022',
+    period: 'Aug 2019 – Dec 2022',
   },
 ];
