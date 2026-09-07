@@ -16,7 +16,7 @@ const educationData = [
     title: 'Computer Science',
     subtitle: 'University of Maryland, Baltimore County',
     location: 'Baltimore, MD',
-    period: 'Aug 2024 - Present',
+    period: 'Aug 2024 - May 2026',
     ongoing: false,
     gpa: '4.0',
     technologies: [
