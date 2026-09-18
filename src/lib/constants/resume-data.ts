@@ -5,7 +5,7 @@
 export const resumeHeader = {
   name: 'Ketul Kishorbhai Chhaya',
   role: '',
-  location: 'Germantown, MD',
+  location: 'Germantown, MD (open to relocation)',
   email: 'chhayaketul.dev@gmail.com',
   phone: '443-851-9503',
   portfolio: { label: 'ketulchhaya.com', href: 'https://www.ketulchhaya.com' },
@@ -19,19 +19,19 @@ export const resumeHeader = {
 
 export const resumeExperiences = [
   {
-    title: 'Software Engineer – Platform & AI',
+    title: 'Software Engineer',
     company: 'BizChat',
     companyLink: 'https://bizchat-io.vercel.app',
     location: 'Baltimore, MD',
-    period: 'May 2025 – May 2026',
+    period: 'May 2025 – Present',
     current: true,
     bullets: [
-      'Reduced Firestore reads by 108x (2,800 to 26 per query) by building an inverted index, rebuilt weekly by a scheduled Cloud Run function that uses content hashing to update only changed records, and served through a Next.js API.',
-      'Shipped a multi-provider model router adopted by 64% of active users, enabling zero-loss mid-session switching across OpenAI, Claude, Mistral, and Llama via Firebase persistence.',
-      'Engineered a TypeScript/Firestore pipeline aggregating 100K+ telemetry events into human-AI collaboration metrics, surfaced via a React dashboard for a CHI publication.',
-      'Reduced monthly LLM costs by migrating a scraping workload that drove 40% of token spend, identified via a self-built open-source TypeScript proxy, tokenwise-tracker.',
-      'Built a streaming AI edit pipeline in TypeScript, Next.js, and AWS Bedrock, where the LLM emits NDJSON ops against a custom ProseMirror section schema, replacing a 700-line fuzzy matcher.',
-      'Automated an end-to-end Playwright test suite covering the full user journey across Chromium, Firefox, and WebKit, with Slack alerts and report links that caught regressions before production.',
+      'Optimized Firestore read volume 108x (2,800 to 26 per query) by architecting an inverted index served through a Next.js API, with weekly incremental rebuilds on Cloud Run that skip unchanged records via content hash diffing.',
+      'Engineered zero-loss model switching for 220+ entrepreneurs by building a multi-provider LLM router across OpenAI, Claude, Mistral, and Llama with persistent session state in Firebase.',
+      'Reduced monthly LLM token spend 40% by replacing a custom Puppeteer scraper with the Tavily API, removing full page HTML from model inputs, traced via tokenwise-tracker, an open-source proxy I built.',
+      'Cut AI suggestion latency 72% (8s to 2.2s) by engineering a ProseMirror streaming pipeline in Next.js and TypeScript that renders NDJSON chunks as inline diff decorations with zero layout shift or document history pollution.',
+      'Quantified the user acceptance, revision, and retention patterns behind a CHI publication by piping 100K+ Firestore telemetry events into BigQuery and surfacing SQL results through an auto refreshing data connector.',
+      'Owned an end-to-end testing and release safety net across Chromium, Firefox, and WebKit, cutting QA triage time by 60% by automating a Playwright CI/CD pipeline with Slack alerts and hosted reports to catch pre-production regressions.',
     ],
   },
   {
@@ -42,11 +42,11 @@ export const resumeExperiences = [
     period: 'Jan 2023 – Jun 2024',
     current: false,
     bullets: [
-      'Reduced contract migration time from two weeks to five days by building Python ETL pipelines and Spring Boot REST services, processing 8,000+ contracts with AI-driven metadata extraction.',
-      'Prevented 6+ concurrent redlining collisions on shared contracts with a JavaScript webhook based locking and presence system between the Office.js Word add-in and ContractFlow portal.',
-      'Designed a Spring Boot provisioning service using dependency injection and modular service abstractions to aggregate configuration across client environments, saving 100+ engineering hours across 4 deployments.',
-      'Scaled a NestJS approval microservice to route contracts through parallel or sequential approver chains by value, cutting approval turnaround 50% over the prior manual process.',
-      'Implemented an AngularJS admin console to configure approvals, triggers, delegations, and audit timelines, cutting manual workflow effort 35%.',
+      'Overhauled contract migration from two weeks to five days across 8,000+ contracts by running AI metadata extraction in parallel with per document timeouts and fallback handling, built on Python ETL pipelines and Spring Boot REST services.',
+      'Developed a NestJS approval microservice that routes contracts through parallel review then sequential executive sign off by contract value and department, reducing legal approval cycle time 50%.',
+      'Prevented 6+ concurrent edit collisions on shared enterprise contracts by engineering real-time presence detection and distributed lock webhooks between Office.js Word add-ins and the core web app.',
+      'Automated new client instance provisioning with a Node.js toolkit that standardizes contract models, templates, fields, views, and business rules, saving 110+ engineering hours of manual setup across 4 deployments.',
+      'Decreased administrative setup overhead by 35% by developing an AngularJS administration console featuring drag-and-drop workflow builders, interactive audit logs, and form validation.',
     ],
   },
   {
@@ -57,29 +57,21 @@ export const resumeExperiences = [
     period: 'Jun 2022 – Dec 2022',
     current: false,
     bullets: [
-      'Optimized MongoDB ranking API from 5s to 800ms by precomputing and caching scores via Node.js cron job, reducing query latency by 84%.',
-      'Launched a real-time Node.js chat service on Azure Web PubSub with a React client linking buyers and sellers, with email fallback for offline users, cutting order-status support tickets by 40%.',
-      'Built internal CMS in React, Express, and MongoDB enabling marketing to self-publish campaign pages and edit site content, eliminating 12 engineering tickets per week.',
+      'Diagnosed a 5s MongoDB ranking bottleneck and cut query latency 84% to 800ms via automated score precomputation using Node.js based cron jobs and Redis caching.',
+      'Reduced customer support tickets by 40% by adding a buyer-seller chat portal using Node.js, Azure Web PubSub, and React with automated offline email fallbacks.',
+      'Unblocked the marketing operations team with a modular internal CMS in React/Redux featuring preview rendering, scheduling, and reusable UI components, removing 12 recurring developer support requests per week.',
     ],
   },
 ];
 
 export const resumeProjects = [
   {
-    name: 'CiteSight – GEO Agent',
-    tech: ['FastAPI', 'React', 'LangGraph', 'Postgres', 'Docker'],
-    link: 'https://github.com/KetulChhaya/GEO-Agent',
-    linkLabel: 'github.com/KetulChhaya/GEO-Agent',
-    bullet:
-      'Building a LangGraph and Temporal pipeline that crawls sites into pgvector, probes Claude/GPT/Gemini in parallel on buyer intent questions, and scores brand visibility via cosine similarity gaps with sourced fixes.',
-  },
-  {
     name: 'PayPipe',
     tech: ['FastAPI', 'Apache Kafka', 'Docker', 'Python'],
     link: 'https://github.com/KetulChhaya/PayPipe',
     linkLabel: 'github.com/KetulChhaya/PayPipe',
     bullet:
-      'Designed a fault-tolerant, event-driven payment pipeline (FastAPI, Kafka) achieving exactly-once processing guarantees via Redis SETNX idempotency keys, with exponential backoff retries and a dead-letter queue to isolate failures.',
+      'Engineered a fault-tolerant, event driven payment pipeline achieving exactly once processing via Redis SETNX idempotency keys, with exponential backoff retries and a dead-letter queue isolating failures.',
   },
   {
     name: 'Repo Graph',
@@ -87,7 +79,15 @@ export const resumeProjects = [
     link: 'https://github.com/KetulChhaya/repo-graph',
     linkLabel: 'github.com/KetulChhaya/repo-graph',
     bullet:
-      'Built a TypeScript MCP server that parses a codebase into an import dependency graph, helping AI agents catch circular imports that break builds and trace what a file change affects across 1,448 files in 1.1s.',
+      'Built a TypeScript MCP server that parses a codebase into an import dependency graph, highlighting circular imports and tracing the blast radius of a file change across 1,448 files in 1.1s.',
+  },
+  {
+    name: 'CiteSight – GEO Agent',
+    tech: ['FastAPI', 'LangGraph', 'Temporal', 'pgvector', 'Docker'],
+    link: 'https://github.com/KetulChhaya/GEO-Agent',
+    linkLabel: 'github.com/KetulChhaya/GEO-Agent',
+    bullet:
+      "Orchestrated a LangGraph and Temporal pipeline that embeds a company site into pgvector, probes Claude, GPT, and Gemini with buyer intent questions, and scores brand visibility by measuring engine answers against the site's own content.",
   },
   {
     name: 'Scheduler Reflow',
@@ -95,25 +95,25 @@ export const resumeProjects = [
     link: 'https://github.com/KetulChhaya/scheduler-reflow',
     linkLabel: 'github.com/KetulChhaya/scheduler-reflow',
     bullet:
-      "Designed a TypeScript production-scheduling engine that reflows orders around delays and maintenance windows via Kahn's topological sort and greedy shift-aware placement, covered by 16 Vitest cases.",
+      "Implemented a TypeScript based scheduling engine that reflows orders around delays and maintenance windows via Kahn's topological sort and greedy shift-aware placement.",
   },
 ];
 
 export const resumeSkills = [
   {
     label: 'Languages',
-    items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'SQL', 'HTML', 'CSS'],
+    items: ['Python', 'TypeScript', 'JavaScript', 'Java', 'SQL', 'HTML', 'CSS'],
   },
   {
-    label: 'Frameworks',
-    items: ['Node.js', 'NestJS', 'Express', 'FastAPI', 'React', 'Next.js', 'Angular', 'Spring Boot', 'REST APIs', 'GraphQL'],
+    label: 'Frontend',
+    items: ['React', 'Next.js', 'Angular', 'TailwindCSS', 'ProseMirror', 'Redux', 'Zustand', 'Webpack', 'Turborepo', 'WCAG', 'Figma'],
   },
   {
-    label: 'Data & Systems',
-    items: ['PostgreSQL', 'MongoDB', 'Firestore', 'Redis', 'Kafka', 'Temporal', 'WebSockets', 'Distributed Caching'],
+    label: 'Backend',
+    items: ['Node.js', 'NestJS', 'Express', 'FastAPI', 'Spring Boot', 'REST APIs', 'GraphQL', 'PostgreSQL', 'MongoDB', 'Firestore', 'BigQuery', 'SQLite', 'Redis', 'Kafka', 'Temporal', 'WebSockets', 'Caching', 'ElasticSearch'],
   },
   {
-    label: 'Cloud & DevOps',
+    label: 'Cloud / DevOps',
     items: ['AWS', 'GCP', 'Azure', 'ServiceNow', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD', 'Datadog', 'Linux', 'JUnit', 'Jest', 'Vitest', 'Playwright'],
   },
   {
