@@ -155,24 +155,21 @@ export function Hero() {
 
             <motion.div
               variants={smoothFadeIn}
-              className="flex items-center justify-between lg:justify-start mb-2"
+              className="flex items-center justify-center lg:justify-start mb-2"
             >
-              <p className="text-muted-foreground max-w-2xl text-base leading-relaxed sm:text-lg md:text-xl">
+              <p className="text-muted-foreground max-w-2xl text-base leading-relaxed sm:text-lg md:text-xl inline-flex items-center gap-2">
                 <span className="text-foreground font-semibold">
-                  M.S. in Computer Science
-                </span>{' '}
-                @{' '}
-                <span className="text-foreground font-semibold">
-                  <Link href="https://umbc.edu" target="_blank" rel="noopener noreferrer" className='underline'>UMBC</Link>
+                  @{' '}<Link href="https://umbc.edu" target="_blank" rel="noopener noreferrer" className='underline'>UMBC</Link>{' '}
+                  Retriever
                 </span>
+                <Image
+                  src="/images/umbc-mascot.png"
+                  alt="UMBC Mascot"
+                  width={30}
+                  height={30}
+                  className="h-8 w-8"
+                />
               </p>
-              <Image
-                src="/images/umbc-mascot.png"
-                alt="UMBC Mascot"
-                width={30}
-                height={30}
-                className="ml-2 h-10 w-10"
-              />
             </motion.div>
 
             <motion.p
