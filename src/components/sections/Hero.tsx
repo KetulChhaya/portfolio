@@ -1,9 +1,11 @@
 'use client';
 
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import { CuriosityMark } from '@/components/ui/curiosity-mark';
+import { useIdlePointer } from '@/hooks/use-idle-pointer';
 import { GlassmorphismCard } from '@/components/ui/glassmorphism-card';
 // import { MusicPlayerWithLRC } from '@/components/ui/mini-music-player';
 import { Github, Linkedin, Code2 } from 'lucide-react';
@@ -103,11 +105,16 @@ function ScrollCue() {
 }
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const idlePointer = useIdlePointer(sectionRef);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
     >
+      <CuriosityMark at={idlePointer} />
       {/* Background Scene. Both canvases fade in once their chunk lands, so a
           slow network shows no pop-in. */}
       {/* Desktop/Tablet: Full Three.js scene */}
